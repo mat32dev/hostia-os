@@ -1,0 +1,28 @@
+{
+  "appId": "com.hostia.pos",
+  "appName": "HosTia POS",
+  "webDir": "../pos/public",
+  "server": {
+    "androidScheme": "https",
+    "url": "https://gethostia.com/pos-app",
+    "cleartext": false
+  },
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "launchAutoHide": true,
+      "backgroundColor": "#0A0A0F",
+      "androidSplashResourceName": "splash",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#0A0A0F"
+    }
+  }
+}

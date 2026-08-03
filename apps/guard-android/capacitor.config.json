@@ -1,0 +1,31 @@
+{
+  "appId": "com.hostia.guard",
+  "appName": "HosTia Guard",
+  "webDir": "../guard/public",
+  "server": {
+    "androidScheme": "https",
+    "url": "https://gethostia.com/guard-app",
+    "cleartext": false
+  },
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "launchAutoHide": true,
+      "backgroundColor": "#0A0A0F",
+      "androidSplashResourceName": "splash",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#0A0A0F"
+    },
+    "Camera": {
+      "permissions": ["camera", "photos"]
+    }
+  }
+}

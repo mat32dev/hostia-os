@@ -1,0 +1,62 @@
+name: Build POS Android APK
+
+on:
+  push:
+    paths:
+      - 'apps/pos-android/**'
+      - 'apps/pos/public/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install dependencies
+        run: |
+          cd apps/pos-android
+          npm ci
+
+      - name: Sync Capacitor
+        run: |
+          cd apps/pos-android
+          npx cap sync android
+
+      - name: Build APK
+        run: |
+          cd apps/pos-android/android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: hostia-pos-debug.apk
+          path: apps/pos-android/android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Build AAB (Release)
+        run: |
+          cd apps/pos-android/android
+          ./gradlew bundleRelease
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: hostia-pos-release.aab
+          path: apps/pos-android/android/app/build/outputs/bundle/release/app-release.aab
