@@ -1,0 +1,168 @@
+version: '3.8'
+
+services:
+  # ─── Infrastructure ───
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: hostia
+      POSTGRES_PASSWORD: hostia_dev
+      POSTGRES_DB: hostia_os
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hostia"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  minio:
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: hostia
+      MINIO_ROOT_PASSWORD: hostia_dev_123
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  # ─── Application Services ───
+  pos-api:
+    build:
+      context: ./apps/pos
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql://hostia:hostia_dev@postgres:5432/hostia_os
+      REDIS_URL: redis://redis:6379/0
+    ports:
+      - "8001:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./apps/pos:/app
+    command: uvicorn src.main:app --host 0.0.0.0 --reload
+
+  guard-api:
+    build:
+      context: ./apps/guard
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql://hostia:hostia_dev@postgres:5432/hostia_os
+      REDIS_URL: redis://redis:6379/0
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: hostia
+      MINIO_SECRET_KEY: hostia_dev_123
+      HF_MODEL: HuggingFaceTB/SmolVLM2-2.2B-Instruct
+    ports:
+      - "8002:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    volumes:
+      - ./apps/guard:/app
+      - huggingface_cache:/root/.cache/huggingface
+    command: uvicorn src.main:app --host 0.0.0.0 --reload
+
+  guard-worker:
+    build:
+      context: ./apps/guard
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql://hostia:hostia_dev@postgres:5432/hostia_os
+      REDIS_URL: redis://redis:6379/0
+      MINIO_ENDPOINT: minio:9000
+      HF_MODEL: HuggingFaceTB/SmolVLM2-2.2B-Instruct
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    volumes:
+      - ./apps/guard:/app
+      - huggingface_cache:/root/.cache/huggingface
+    command: celery -A src.main.celery_app worker --loglevel=info --concurrency=2
+
+  chat-api:
+    build:
+      context: ./apps/chat
+      dockerfile: Dockerfile
+    environment:
+      POS_API_URL: http://pos-api:8000
+      GUARD_API_URL: http://guard-api:8000
+      WA_PHONE_ID: ${WA_PHONE_ID:-}
+      WA_ACCESS_TOKEN: ${WA_ACCESS_TOKEN:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    ports:
+      - "3001:3001"
+    depends_on:
+      - pos-api
+      - guard-api
+    volumes:
+      - ./apps/chat:/app
+    command: npm run dev
+
+  hub:
+    build:
+      context: ./apps/hub
+      dockerfile: Dockerfile
+    environment:
+      NEXT_PUBLIC_POS_API: http://localhost:8001
+      NEXT_PUBLIC_GUARD_API: http://localhost:8002
+      NEXT_PUBLIC_CHAT_API: http://localhost:3001
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/hub:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+
+  # ─── Edge Agent (Optional, for local bars) ───
+  edge:
+    build:
+      context: ./apps/edge
+      dockerfile: Dockerfile
+    privileged: true
+    environment:
+      CLOUD_API: http://guard-api:8000
+      POS_API: http://pos-api:8000
+    volumes:
+      - ./apps/edge:/app
+    profiles:
+      - edge
+
+volumes:
+  postgres_data:
+  minio_data:
+  qdrant_data:
+  huggingface_cache:
