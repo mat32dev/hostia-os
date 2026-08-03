@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Host.ia night theme — dark by default, warm bar-lighting amber accents */
+    --background: 240 10% 4%;
+    --foreground: 40 20% 96%;
+    --card: 240 8% 7%;
+    --card-foreground: 40 20% 96%;
+    --popover: 240 9% 6%;
+    --popover-foreground: 40 20% 96%;
+    --primary: 36 95% 55%;
+    --primary-foreground: 30 40% 8%;
+    --secondary: 240 6% 14%;
+    --secondary-foreground: 40 20% 96%;
+    --muted: 240 5% 13%;
+    --muted-foreground: 240 5% 62%;
+    --accent: 240 6% 16%;
+    --accent-foreground: 40 20% 96%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 6% 15%;
+    --input: 240 6% 18%;
+    --ring: 36 95% 55%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'tnum' 1, 'cv03' 1;
+  }
+}
+
+@layer utilities {
+  /* Thin scrollbars that fit the night theme */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted)) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted));
+    border-radius: 3px;
+  }
+}

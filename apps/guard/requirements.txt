@@ -1,0 +1,30 @@
+# ─── API ───
+fastapi[standard]==0.115.0
+uvicorn[standard]==0.32.0
+python-multipart==0.0.20
+pydantic==2.10.3
+pydantic-settings==2.6.1
+
+# ─── Data ───
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
+redis==5.2.0
+celery==5.4.0
+minio==7.2.11
+
+# ─── ML / vision ───
+# torch/torchvision are provided by the CUDA base image in Docker;
+# pinned here for CPU installs as well.
+torch==2.5.1
+torchvision==0.20.1
+ultralytics==8.3.50
+transformers==4.47.0
+accelerate==1.2.1
+sentencepiece==0.2.0
+opencv-python-headless==4.10.0.84
+numpy==2.2.0
+pillow==11.0.0
+
+# ─── Dev / tests ───
+httpx==0.28.1
+pytest==8.3.4

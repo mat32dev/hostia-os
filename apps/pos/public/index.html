@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0A0A0F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>HosT.ia POS</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%2300D4AA%22/><text y=%2270%22 x=%2250%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2260%22 font-weight=%22800%22 fill=%22%230A0A0F%22>P</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/pos.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="pos-header">
+  <div class="pos-header-left">
+    <h1 class="pos-logo">Hos<span>T.ia</span> POS</h1>
+    <span class="pos-date" id="posDate"></span>
+  </div>
+  <div class="pos-header-right">
+    <button class="btn-icon" onclick="showReport()" title="Reporte del día">📊</button>
+    <button class="btn-icon" onclick="window.location.href='settings.html'" title="Configuración">⚙️</button>
+  </div>
+</header>
+
+<!-- MAIN LAYOUT -->
+<div class="pos-layout">
+
+  <!-- TABLES MAP -->
+  <aside class="pos-tables" id="tablesPanel">
+    <div class="panel-title">Mesas</div>
+    <div class="tables-grid" id="tablesGrid"></div>
+  </aside>
+
+  <!-- ORDER PANEL -->
+  <main class="pos-order" id="orderPanel">
+    <div class="order-header">
+      <div class="order-table-info" id="orderTableInfo">
+        <span class="order-table-num" id="orderTableNum">—</span>
+        <span class="order-table-label" id="orderTableLabel">Selecciona una mesa</span>
+      </div>
+      <div class="order-actions">
+        <button class="btn-sm btn-ghost" onclick="clearOrder()">🗑️ Limpiar</button>
+        <button class="btn-sm btn-ghost" onclick="showPayment()" id="btnPay" disabled>💳 Cobrar</button>
+      </div>
+    </div>
+    <div class="order-items" id="orderItems">
+      <div class="order-empty">
+        <p>👆 Selecciona una mesa y añade productos</p>
+      </div>
+    </div>
+    <div class="order-total" id="orderTotal">
+      <span>Total</span>
+      <span class="total-amount">0,00 €</span>
+    </div>
+  </main>
+
+  <!-- MENU PANEL -->
+  <aside class="pos-menu" id="menuPanel">
+    <div class="panel-title">Carta</div>
+    <div class="menu-categories" id="menuCategories"></div>
+    <div class="menu-items" id="menuItems"></div>
+  </aside>
+
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="modal" id="paymentModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Cobrar</h2>
+      <button class="btn-close" onclick="closeModal('paymentModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="payment-total" id="paymentTotal">0,00 €</div>
+      <div class="payment-methods">
+        <button class="payment-method" onclick="processPayment('cash')">
+          <span class="payment-icon">💵</span>
+          <span>Efectivo</span>
+        </button>
+        <button class="payment-method" onclick="processPayment('card')">
+          <span class="payment-icon">💳</span>
+          <span>Tarjeta</span>
+        </button>
+        <button class="payment-method" onclick="processPayment('qr')">
+          <span class="payment-icon">📱</span>
+          <span>QR / Bizum</span>
+        </button>
+      </div>
+      <div class="payment-tip" id="tipSection" style="display:none;">
+        <label>Propina (opcional)</label>
+        <div class="tip-buttons">
+          <button onclick="setTip(0)">0%</button>
+          <button onclick="setTip(5)">5%</button>
+          <button onclick="setTip(10)">10%</button>
+          <button onclick="setTip(15)">15%</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT MODAL -->
+<div class="modal" id="reportModal">
+  <div class="modal-content modal-lg">
+    <div class="modal-header">
+      <h2>Reporte del día</h2>
+      <button class="btn-close" onclick="closeModal('reportModal')">✕</button>
+    </div>
+    <div class="modal-body" id="reportContent"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="js/db.js"></script>
+<script src="js/pos.js"></script>
+<script>
+// Register service worker for offline
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HosT.ia POS — Configuración</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%2300D4AA%22/><text y=%2270%22 x=%2250%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2260%22 font-weight=%22800%22 fill=%22%230A0A0F%22>P</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/pos.css">
+<style>
+  body { overflow-y: auto; height: auto; }
+  .settings-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; background: var(--black); color: var(--white); }
+  .settings-header h1 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; }
+  .settings-header h1 span { color: var(--accent); }
+  .btn-back { background: none; border: 1px solid rgba(255,255,255,0.2); color: var(--white); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-family: var(--font-display); font-size: 0.85rem; }
+  .settings-body { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .settings-section { background: var(--white); border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); }
+  .settings-section h2 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; margin-bottom: 1.5rem; color: var(--black); }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-group label { display: block; font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--grey); margin-bottom: 0.4rem; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--light-grey); border-radius: 10px; font-family: var(--font-body); font-size: 1rem; background: var(--cream); transition: border-color 0.2s; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); background: var(--white); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .btn-save { background: var(--accent); color: var(--black); border: none; padding: 0.85rem 2rem; border-radius: 10px; font-family: var(--font-display); font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.2s; }
+  .btn-save:hover { background: var(--accent-dark); transform: translateY(-1px); }
+  .btn-danger { background: var(--alert); color: var(--white); border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.85rem; cursor: pointer; }
+  .table-list { list-style: none; }
+  .table-list li { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--light-grey); }
+  .table-list li:last-child { border-bottom: none; }
+  .menu-item-list { list-style: none; }
+  .menu-item-list li { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--light-grey); }
+  .menu-item-list li:last-child { border-bottom: none; }
+  .menu-item-price { font-family: var(--font-display); font-weight: 700; color: var(--accent); }
+  .import-export { display: flex; gap: 1rem; margin-top: 1rem; }
+  .import-export button { flex: 1; padding: 0.75rem; border: 1px solid var(--light-grey); border-radius: 10px; background: var(--white); cursor: pointer; font-family: var(--font-display); font-weight: 600; }
+  .import-export button:hover { border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="settings-header">
+  <h1>Hos<span>T.ia</span> POS — Configuración</h1>
+  <button class="btn-back" onclick="window.location.href='index.html'">← Volver al TPV</button>
+</header>
+
+<div class="settings-body">
+
+  <!-- BUSINESS INFO -->
+  <div class="settings-section">
+    <h2>🏢 Tu negocio</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nombre del negocio</label>
+        <input type="text" id="businessName" placeholder="Mi Restaurante">
+      </div>
+      <div class="form-group">
+        <label>Moneda</label>
+        <select id="currency">
+          <option value="EUR">€ Euro</option>
+          <option value="USD">$ Dólar</option>
+          <option value="GBP">£ Libra</option>
+          <option value="MXN">$ Peso mexicano</option>
+          <option value="COP">$ Peso colombiano</option>
+          <option value="ARS">$ Peso argentino</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>IVA (%)</label>
+        <input type="number" id="taxRate" value="10" min="0" max="30" step="0.1">
+      </div>
+      <div class="form-group">
+        <label>Idioma</label>
+        <select id="language">
+          <option value="es">Español</option>
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="ca">Català</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-save" onclick="saveBusinessInfo()">Guardar</button>
+  </div>
+
+  <!-- TABLES -->
+  <div class="settings-section">
+    <h2>🪑 Mesas</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Número de mesa</label>
+        <input type="number" id="tableNumber" placeholder="1" min="1">
+      </div>
+      <div class="form-group">
+        <label>Capacidad (personas)</label>
+        <input type="number" id="tableCapacity" placeholder="4" min="1">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Zona</label>
+      <select id="tableZone">
+        <option value="salon">Salón</option>
+        <option value="terraza">Terraza</option>
+        <option value="barra">Barra</option>
+        <option value="privado">Privado</option>
+      </select>
+    </div>
+    <button class="btn-save" onclick="addTable()">Añadir mesa</button>
+    <ul class="table-list" id="tablesList" style="margin-top:1.5rem;"></ul>
+  </div>
+
+  <!-- MENU -->
+  <div class="settings-section">
+    <h2>🍽️ Carta</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nombre del plato</label>
+        <input type="text" id="itemName" placeholder="Paella de mariscos">
+      </div>
+      <div class="form-group">
+        <label>Precio (€)</label>
+        <input type="number" id="itemPrice" placeholder="18.00" min="0" step="0.01">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Categoría</label>
+        <select id="itemCategory"></select>
+      </div>
+      <div class="form-group">
+        <label>Coste (€)</label>
+        <input type="number" id="itemCost" placeholder="8.00" min="0" step="0.01">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Alérgenos (separados por coma)</label>
+      <input type="text" id="itemAllergens" placeholder="gluten,crustaceans,dairy">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label><input type="checkbox" id="itemVegetarian"> Vegetariano</label>
+      </div>
+      <div class="form-group">
+        <label><input type="checkbox" id="itemVegan"> Vegano</label>
+      </div>
+      <div class="form-group">
+        <label><input type="checkbox" id="itemGlutenFree"> Sin gluten</label>
+      </div>
+    </div>
+    <button class="btn-save" onclick="addMenuItem()">Añadir plato</button>
+    <ul class="menu-item-list" id="menuItemsList" style="margin-top:1.5rem;"></ul>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="settings-section">
+    <h2>📁 Categorías</h2>
+    <div class="form-group">
+      <label>Nueva categoría</label>
+      <input type="text" id="newCategory" placeholder="Ej: Entrantes, Principales, Postres...">
+    </div>
+    <button class="btn-save" onclick="addCategory()">Añadir categoría</button>
+    <ul class="table-list" id="categoriesList" style="margin-top:1.5rem;"></ul>
+  </div>
+
+  <!-- DATA -->
+  <div class="settings-section">
+    <h2>💾 Datos</h2>
+    <p style="color:var(--grey);font-size:0.9rem;margin-bottom:1rem;">Exporta tus datos para hacer backup o importar en otro dispositivo.</p>
+    <div class="import-export">
+      <button onclick="exportData()">📤 Exportar datos</button>
+      <button onclick="document.getElementById('importFile').click()">📥 Importar datos</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importDataFile(this)">
+    </div>
+  </div>
+
+  <!-- DANGER -->
+  <div class="settings-section" style="border:1px solid var(--alert);">
+    <h2 style="color:var(--alert);">⚠️ Zona de peligro</h2>
+    <p style="color:var(--grey);font-size:0.9rem;margin-bottom:1rem;">Estas acciones no se pueden deshacer.</p>
+    <button class="btn-danger" onclick="resetAll()">🗑️ Resetear todo (borra todos los datos)</button>
+  </div>
+
+</div>
+
+<script src="js/db.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  await initDB();
+  await loadSettings();
+  renderTablesList();
+  renderMenuItemsList();
+  renderCategoriesList();
+});
+
+async function loadSettings() {
+  document.getElementById('businessName').value = await getSetting('business_name', 'Mi Restaurante');
+  document.getElementById('currency').value = await getSetting('currency', 'EUR');
+  document.getElementById('taxRate').value = await getSetting('tax_rate', 10);
+  document.getElementById('language').value = await getSetting('language', 'es');
+}
+
+async function saveBusinessInfo() {
+  await setSetting('business_name', document.getElementById('businessName').value);
+  await setSetting('currency', document.getElementById('currency').value);
+  await setSetting('tax_rate', parseFloat(document.getElementById('taxRate').value));
+  await setSetting('language', document.getElementById('language').value);
+  showToast('✅ Configuración guardada');
+}
+
+async function addTable() {
+  const number = parseInt(document.getElementById('tableNumber').value);
+  const capacity = parseInt(document.getElementById('tableCapacity').value);
+  const zone = document.getElementById('tableZone').value;
+
+  if (!number || !capacity) {
+    showToast('❌ Rellena todos los campos', 'error');
+    return;
+  }
+
+  await add('tables', { number, capacity, zone, status: 'free' });
+  document.getElementById('tableNumber').value = '';
+  document.getElementById('tableCapacity').value = '';
+  renderTablesList();
+  showToast('✅ Mesa añadida');
+}
+
+async function renderTablesList() {
+  const tables = await getAll('tables');
+  const list = document.getElementById('tablesList');
+  list.innerHTML = tables.map(t => `
+    <li>
+      <span>Mesa ${t.number} · ${t.capacity}p · ${t.zone}</span>
+      <button class="btn-danger" onclick="deleteTable(${t.id})">Eliminar</button>
+    </li>
+  `).join('');
+}
+
+async function deleteTable(id) {
+  if (!confirm('¿Eliminar esta mesa?')) return;
+  await remove('tables', id);
+  renderTablesList();
+}
+
+async function addMenuItem() {
+  const name = document.getElementById('itemName').value;
+  const price = parseFloat(document.getElementById('itemPrice').value);
+  const cost = parseFloat(document.getElementById('itemCost').value) || 0;
+  const category = document.getElementById('itemCategory').value;
+  const allergens = document.getElementById('itemAllergens').value;
+  const is_vegetarian = document.getElementById('itemVegetarian').checked;
+  const is_vegan = document.getElementById('itemVegan').checked;
+  const is_gluten_free = document.getElementById('itemGlutenFree').checked;
+
+  if (!name || !price || !category) {
+    showToast('❌ Rellena nombre, precio y categoría', 'error');
+    return;
+  }
+
+  await add('menu_items', {
+    name, price, cost, category, allergens,
+    is_vegetarian, is_vegan, is_gluten_free,
+    is_available: true,
+    sort_order: 0
+  });
+
+  document.getElementById('itemName').value = '';
+  document.getElementById('itemPrice').value = '';
+  document.getElementById('itemCost').value = '';
+  document.getElementById('itemAllergens').value = '';
+  renderMenuItemsList();
+  showToast('✅ Plato añadido');
+}
+
+async function renderMenuItemsList() {
+  const items = await getAll('menu_items');
+  const list = document.getElementById('menuItemsList');
+  list.innerHTML = items.map(i => `
+    <li>
+      <span>${i.name} · ${i.category}</span>
+      <span class="menu-item-price">${formatPrice(i.price)}</span>
+      <button class="btn-danger" onclick="deleteMenuItem(${i.id})">Eliminar</button>
+    </li>
+  `).join('');
+}
+
+async function deleteMenuItem(id) {
+  if (!confirm('¿Eliminar este plato?')) return;
+  await remove('menu_items', id);
+  renderMenuItemsList();
+}
+
+async function renderCategoriesList() {
+  const cats = await getAll('categories');
+  const list = document.getElementById('categoriesList');
+  list.innerHTML = cats.map(c => `
+    <li>
+      <span>${c.name}</span>
+      <button class="btn-danger" onclick="deleteCategory(${c.id})">Eliminar</button>
+    </li>
+  `).join('');
+
+  // Update category select
+  const select = document.getElementById('itemCategory');
+  select.innerHTML = cats.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+}
+
+async function addCategory() {
+  const name = document.getElementById('newCategory').value;
+  if (!name) return;
+  const cats = await getAll('categories');
+  await add('categories', { name, sort_order: cats.length + 1 });
+  document.getElementById('newCategory').value = '';
+  renderCategoriesList();
+  showToast('✅ Categoría añadida');
+}
+
+async function deleteCategory(id) {
+  if (!confirm('¿Eliminar esta categoría? Los platos asociados se quedarán sin categoría.')) return;
+  await remove('categories', id);
+  renderCategoriesList();
+}
+
+async function exportData() {
+  const data = await exportData();
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `hostia-pos-backup-${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('✅ Datos exportados');
+}
+
+async function importDataFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  const text = await file.text();
+  try {
+    const data = JSON.parse(text);
+    await importData(data);
+    showToast('✅ Datos importados correctamente');
+    setTimeout(() => location.reload(), 1000);
+  } catch (e) {
+    showToast('❌ Error al importar: ' + e.message, 'error');
+  }
+}
+
+async function resetAll() {
+  if (!confirm('⚠️ ¿ESTÁS SEGURO? Esto borrará TODOS los datos: mesas, carta, pedidos, configuración.')) return;
+  if (!confirm('⚠️ ¿DE VERDAD? No hay vuelta atrás.')) return;
+
+  const stores = ['tables', 'menu_items', 'categories', 'orders', 'order_items', 'payments', 'settings', 'inventory', 'sync_queue'];
+  for (const store of stores) {
+    await clear(store);
+  }
+  showToast('🗑️ Todo borrado. Recargando...');
+  setTimeout(() => location.reload(), 1500);
+}
+
+function formatPrice(amount) {
+  return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
+}
+
+function showToast(message, type = '') {
+  const toast = document.getElementById('toast') || createToast();
+  toast.textContent = message;
+  toast.className = `toast show ${type}`;
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+function createToast() {
+  const toast = document.createElement('div');
+  toast.id = 'toast';
+  toast.className = 'toast';
+  document.body.appendChild(toast);
+  return toast;
+}
+</script>
+</body>
+</html>

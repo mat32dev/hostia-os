@@ -1,0 +1,29 @@
+{
+  "name": "hostia-chat",
+  "version": "1.0.0",
+  "description": "Host.ia Chat — AI Front-of-House (WhatsApp)",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "vitest"
+  },
+  "keywords": ["whatsapp", "ai", "hospitality", "chatbot"],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.0",
+    "axios": "^1.8.4",
+    "redis": "^4.7.0",
+    "openai": "^4.78.0",
+    "zod": "^3.24.1",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HosT.ia Guard — AI Security Analyst</title>
+<meta name="description" content="Sube el vídeo de tu cámara y la IA detecta transacciones en efectivo, descuadres con el TPV, y te alerta al instante.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23FF4757%22/><text y=%2270%22 x=%2250%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2260%22 font-weight=%22800%22 fill=%22%23fff%22>G</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/guard.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="guard-header">
+  <div class="guard-header-left">
+    <h1 class="guard-logo">Hos<span>T.ia</span> Guard</h1>
+    <span class="guard-status" id="guardStatus">🟢 Sistema activo</span>
+  </div>
+  <div class="guard-header-right">
+    <span class="guard-date" id="guardDate"></span>
+    <a href="/pos" class="btn-icon" title="Ir al TPV">🧾</a>
+    <a href="/chat" class="btn-icon" title="Ir al Chat">💬</a>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="guard-layout">
+
+  <!-- UPLOAD PANEL -->
+  <section class="upload-panel">
+    <div class="panel-title">📹 Subir vídeo</div>
+
+    <div class="upload-zone" id="uploadZone">
+      <div class="upload-icon">📹</div>
+      <h3>Arrastra tu vídeo aquí</h3>
+      <p>o haz clic para seleccionar</p>
+      <p class="upload-hint">MP4, AVI, MOV · Máx 500MB · Se analiza con IA</p>
+      <input type="file" id="videoInput" accept="video/*" style="display:none">
+    </div>
+
+    <div class="upload-progress" id="uploadProgress" style="display:none;">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <div class="upload-info" id="uploadInfo" style="display:none;">
+      <div class="info-row">
+        <span>📁 Archivo</span>
+        <span id="fileName">—</span>
+      </div>
+      <div class="info-row">
+        <span>📏 Tamaño</span>
+        <span id="fileSize">—</span>
+      </div>
+      <div class="info-row">
+        <span>⏱️ Duración</span>
+        <span id="fileDuration">—</span>
+      </div>
+      <div class="info-row">
+        <span>📊 Estado</span>
+        <span id="analysisStatus">Analizando...</span>
+      </div>
+    </div>
+
+    <div class="upload-actions" id="uploadActions" style="display:none;">
+      <button class="btn-primary" onclick="startAnalysis()">🔍 Analizar vídeo</button>
+      <button class="btn-ghost" onclick="resetUpload()">↺ Nuevo vídeo</button>
+    </div>
+  </section>
+
+  <!-- RESULTS PANEL -->
+  <section class="results-panel">
+    <div class="panel-title">🔍 Resultados</div>
+
+    <div class="results-summary" id="resultsSummary" style="display:none;">
+      <div class="summary-grid">
+        <div class="summary-stat">
+          <div class="summary-value" id="statFrames">0</div>
+          <div class="summary-label">Frames analizados</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-value" id="statSuspicious">0</div>
+          <div class="summary-label">Sospechosos</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-value" id="statAlerts">0</div>
+          <div class="summary-label">Alertas</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-value" id="statConfidence">0%</div>
+          <div class="summary-label">Confianza media</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alerts-list" id="alertsList">
+      <div class="alerts-empty">
+        <p>📹 Sube un vídeo para empezar el análisis</p>
+        <p class="alerts-empty-sub">La IA detectará transacciones en efectivo y las cruzará con tu TPV</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATRIX PANEL -->
+  <section class="matrix-panel">
+    <div class="panel-title">⚖️ Matriz de detección</div>
+    <div class="matrix-table">
+      <div class="matrix-row matrix-header">
+        <div class="matrix-cell">TPV</div>
+        <div class="matrix-cell">Vídeo</div>
+        <div class="matrix-cell">Resultado</div>
+      </div>
+      <div class="matrix-row">
+        <div class="matrix-cell">✅ Venta</div>
+        <div class="matrix-cell">✅ Efectivo</div>
+        <div class="matrix-cell ok">✅ Correcto</div>
+      </div>
+      <div class="matrix-row">
+        <div class="matrix-cell">✅ Venta</div>
+        <div class="matrix-cell">❌ Sin efectivo</div>
+        <div class="matrix-cell warn">⚠️ Revisar</div>
+      </div>
+      <div class="matrix-row">
+        <div class="matrix-cell">❌ Sin venta</div>
+        <div class="matrix-cell">✅ Efectivo</div>
+        <div class="matrix-cell alert">🚨 Alerta</div>
+      </div>
+      <div class="matrix-row">
+        <div class="matrix-cell">❌ Sin venta</div>
+        <div class="matrix-cell">❌ Sin efectivo</div>
+        <div class="matrix-cell ok">⏸️ Tranquilo</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="js/guard.js"></script>
+</body>
+</html>
