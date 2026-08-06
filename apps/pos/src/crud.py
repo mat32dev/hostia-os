@@ -38,6 +38,54 @@ def get_tenant_by_slug(db: Session, slug: str):
     return db.query(models.Tenant).filter(models.Tenant.slug == slug).first()
 
 
+# ─── Menu Category ───
+def get_categories(db: Session, tenant_id: int):
+    return db.query(models.MenuCategory).filter(
+        models.MenuCategory.tenant_id == tenant_id,
+        models.MenuCategory.is_active == True
+    ).order_by(models.MenuCategory.sort_order).all()
+
+
+def create_category(db: Session, category: schemas.CategoryCreate, tenant_id: int):
+    db_category = models.MenuCategory(**category.dict(), tenant_id=tenant_id)
+    db.add(db_category)
+    db.commit()
+    db.refresh(db_category)
+    return db_category
+
+
+def update_category(db: Session, category_id: int, category: schemas.CategoryUpdate, tenant_id: int):
+    db_category = db.query(models.MenuCategory).filter(
+        models.MenuCategory.id == category_id,
+        models.MenuCategory.tenant_id == tenant_id
+    ).first()
+    if not db_category:
+        return None
+    update_data = category.dict(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(db_category, key, value)
+    db.commit()
+    db.refresh(db_category)
+    return db_category
+
+
+def delete_category(db: Session, category_id: int, tenant_id: int):
+    db_category = db.query(models.MenuCategory).filter(
+        models.MenuCategory.id == category_id,
+        models.MenuCategory.tenant_id == tenant_id
+    ).first()
+    if not db_category:
+        return None
+    # Unassign items from this category
+    db.query(models.MenuItem).filter(
+        models.MenuItem.category_id == category_id,
+        models.MenuItem.tenant_id == tenant_id
+    ).update({"category_id": None})
+    db.delete(db_category)
+    db.commit()
+    return True
+
+
 # ─── Table ───
 def get_tables(db: Session, tenant_id: int):
     return db.query(models.Table).filter(models.Table.tenant_id == tenant_id).all()
@@ -49,6 +97,33 @@ def create_table(db: Session, table: schemas.TableCreate, tenant_id: int):
     db.commit()
     db.refresh(db_table)
     return db_table
+
+
+def update_table(db: Session, table_id: int, table: schemas.TableUpdate, tenant_id: int):
+    db_table = db.query(models.Table).filter(
+        models.Table.id == table_id,
+        models.Table.tenant_id == tenant_id
+    ).first()
+    if not db_table:
+        return None
+    update_data = table.dict(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(db_table, key, value)
+    db.commit()
+    db.refresh(db_table)
+    return db_table
+
+
+def delete_table(db: Session, table_id: int, tenant_id: int):
+    db_table = db.query(models.Table).filter(
+        models.Table.id == table_id,
+        models.Table.tenant_id == tenant_id
+    ).first()
+    if not db_table:
+        return None
+    db.delete(db_table)
+    db.commit()
+    return True
 
 
 def update_table_status(db: Session, table_id: int, status: models.TableStatus):

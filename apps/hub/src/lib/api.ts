@@ -2,9 +2,12 @@ import useSWR from 'swr';
 import { authHeaders, clearToken } from '@/lib/auth';
 import type {
   AlertResolution,
+  CategoryCreate,
+  CategoryUpdate,
   Conversation,
   GuardAlert,
   GuardDailyReport,
+  MenuCategory,
   MenuItem,
   MenuItemCreate,
   MenuItemUpdate,
@@ -15,6 +18,7 @@ import type {
   ServiceHealth,
   ServiceName,
   TableCreate,
+  TableUpdate,
   Tenant,
   TenantUpdate,
   User,
@@ -79,6 +83,10 @@ export const posApi = {
   getTables: () => request<RestaurantTable[]>(POS_BASE, '/v1/tables'),
   createTable: (data: TableCreate) =>
     request<RestaurantTable>(POS_BASE, '/v1/tables', { method: 'POST', body: JSON.stringify(data) }),
+  updateTable: (id: number, data: TableUpdate) =>
+    request<RestaurantTable>(POS_BASE, `/v1/tables/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteTable: (id: number) =>
+    request<void>(POS_BASE, `/v1/tables/${id}`, { method: 'DELETE' }),
 
   // Menu
   async getMenu(): Promise<MenuResponse> {
@@ -88,6 +96,14 @@ export const posApi = {
     const obj = (raw ?? {}) as Partial<MenuResponse>;
     return { categories: obj.categories ?? [], items: obj.items ?? [] };
   },
+  // Categories
+  getCategories: () => request<MenuCategory[]>(POS_BASE, '/v1/categories'),
+  createCategory: (data: CategoryCreate) =>
+    request<MenuCategory>(POS_BASE, '/v1/categories', { method: 'POST', body: JSON.stringify(data) }),
+  updateCategory: (id: number, data: CategoryUpdate) =>
+    request<MenuCategory>(POS_BASE, `/v1/categories/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteCategory: (id: number) =>
+    request<void>(POS_BASE, `/v1/categories/${id}`, { method: 'DELETE' }),
   createMenuItem: (data: MenuItemCreate) =>
     request<MenuItem>(POS_BASE, '/v1/menu', { method: 'POST', body: JSON.stringify(data) }),
   updateMenuItem: (id: number, data: MenuItemUpdate) =>

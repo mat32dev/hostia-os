@@ -62,12 +62,41 @@ class TableCreate(BaseModel):
     zone: str = "salon"
 
 
+class TableUpdate(BaseModel):
+    number: Optional[int] = None
+    capacity: Optional[int] = None
+    zone: Optional[str] = None
+    status: Optional[str] = None
+
+
 class TableResponse(BaseModel):
     id: int
     number: int
     capacity: int
     status: str
     zone: str
+
+    class Config:
+        from_attributes = True
+
+
+# ─── Menu Category ───
+class CategoryCreate(BaseModel):
+    name: str
+    sort_order: int = 0
+
+
+class CategoryUpdate(BaseModel):
+    name: Optional[str] = None
+    sort_order: Optional[int] = None
+    is_active: Optional[bool] = None
+
+
+class CategoryResponse(BaseModel):
+    id: int
+    name: str
+    sort_order: int
+    is_active: bool
 
     class Config:
         from_attributes = True

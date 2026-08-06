@@ -1,10 +1,11 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Leaf, Loader2, Pencil, Plus, Search, Trash2, UtensilsCrossed, WheatOff } from 'lucide-react';
+import { FolderOpen, Leaf, Loader2, Pencil, Plus, Search, Trash2, UtensilsCrossed, WheatOff } from 'lucide-react';
 import { posApi, useMenu } from '@/lib/api';
-import type { MenuItem, MenuItemCreate, MenuItemUpdate } from '@/types';
+import type { MenuCategory, MenuItem, MenuItemCreate, MenuItemUpdate } from '@/types';
 import { cn, formatCurrency, groupBy } from '@/lib/utils';
+import { CategoryFormDialog } from '@/components/CategoryFormDialog';
 import { MenuEditor, type MenuItemFormValues } from '@/components/MenuEditor';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -47,6 +48,11 @@ export default function MenuPage() {
   const [togglingId, setTogglingId] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
+  // Category management
+  const [catFormOpen, setCatFormOpen] = useState(false);
+  const [editingCategory, setEditingCategory] = useState<MenuCategory | null>(null);
+  const [deletingCategoryId, setDeletingCategoryId] = useState<number | null>(null);
+
   const categories = useMemo(() => menuSwr.data?.categories ?? [], [menuSwr.data]);
   const items = useMemo(() => menuSwr.data?.items ?? [], [menuSwr.data]);
 
@@ -79,6 +85,7 @@ export default function MenuPage() {
     return orderedKeys.map((key) => ({
       key,
       name: key === UNCATEGORIZED ? 'Uncategorized' : categoryName(Number(key)),
+      category: key === UNCATEGORIZED ? null : categories.find((c) => c.id === Number(key)),
       items: byCategory[key],
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -89,6 +96,7 @@ export default function MenuPage() {
     setTimeout(() => setFeedback(null), 4000);
   };
 
+  // Menu item handlers
   const handleSubmit = async (values: MenuItemFormValues) => {
     const base: MenuItemCreate = {
       name: values.name.trim(),
@@ -104,10 +112,10 @@ export default function MenuPage() {
     if (editing) {
       const update: MenuItemUpdate = { ...base, is_available: values.is_available };
       await posApi.updateMenuItem(editing.id, update);
-      notify('success', `“${values.name}” updated.`);
+      notify('success', `"${values.name}" updated.`);
     } else {
       await posApi.createMenuItem(base);
-      notify('success', `“${values.name}” added to the menu.`);
+      notify('success', `"${values.name}" added to the menu.`);
     }
     await menuSwr.mutate();
   };
@@ -129,13 +137,48 @@ export default function MenuPage() {
     try {
       await posApi.deleteMenuItem(item.id);
       await menuSwr.mutate();
-      notify('success', `“${item.name}” removed from the menu.`);
+      notify('success', `"${item.name}" removed from the menu.`);
     } catch (err) {
       notify('error', err instanceof Error ? err.message : 'Failed to delete the item');
     } finally {
       setDeletingId(null);
       setConfirmDeleteId(null);
     }
+  };
+
+  // Category handlers
+  const handleCategorySubmit = async (values: { name: string; sort_order: number }) => {
+    if (editingCategory) {
+      await posApi.updateCategory(editingCategory.id, values);
+      notify('success', `Category "${values.name}" updated.`);
+    } else {
+      await posApi.createCategory(values);
+      notify('success', `Category "${values.name}" created.`);
+    }
+    await menuSwr.mutate();
+  };
+
+  const handleDeleteCategory = async (cat: MenuCategory) => {
+    setDeletingCategoryId(cat.id);
+    try {
+      await posApi.deleteCategory(cat.id);
+      await menuSwr.mutate();
+      notify('success', `Category "${cat.name}" deleted. Items moved to Uncategorized.`);
+    } catch (err) {
+      notify('error', err instanceof Error ? err.message : 'Failed to delete category');
+    } finally {
+      setDeletingCategoryId(null);
+    }
+  };
+
+  const handleEditCategory = (cat: MenuCategory) => {
+    setEditingCategory(cat);
+    setCatFormOpen(true);
+  };
+
+  const handleCatFormOpenChange = (open: boolean) => {
+    setCatFormOpen(open);
+    if (!open) setEditingCategory(null);
   };
 
   if (menuSwr.error) {
@@ -155,14 +198,19 @@ export default function MenuPage() {
             className="pl-9"
           />
         </div>
-        <Button
-          onClick={() => {
-            setEditing(null);
-            setEditorOpen(true);
-          }}
-        >
-          <Plus className="h-4 w-4" /> New item
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={() => setCatFormOpen(true)}>
+            <FolderOpen className="h-4 w-4" /> Category
+          </Button>
+          <Button
+            onClick={() => {
+              setEditing(null);
+              setEditorOpen(true);
+            }}
+          >
+            <Plus className="h-4 w-4" /> New item
+          </Button>
+        </div>
       </div>
 
       {feedback && (
@@ -192,15 +240,48 @@ export default function MenuPage() {
           }
         />
       ) : filtered.length === 0 ? (
-        <EmptyState icon={Search} title="No matches" message={`Nothing found for “${search}”.`} />
+        <EmptyState icon={Search} title="No matches" message={`Nothing found for "${search}".`} />
       ) : (
         <div className="space-y-6">
           {grouped.map((group) => (
             <section key={group.key}>
-              <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                {group.name}
-                <span className="ml-2 font-normal normal-case">({group.items.length})</span>
-              </h3>
+              <div className="mb-2 flex items-center gap-2">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  {group.name}
+                  <span className="ml-2 font-normal normal-case">({group.items.length})</span>
+                </h3>
+                {group.category && (
+                  <div className="flex gap-1">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6"
+                      onClick={() => handleEditCategory(group.category!)}
+                    >
+                      <Pencil className="h-3 w-3" />
+                    </Button>
+                    {deletingCategoryId === group.category!.id ? (
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        className="h-6 px-2 text-xs"
+                        onClick={() => handleDeleteCategory(group.category!)}
+                      >
+                        <Loader2 className="h-3 w-3 animate-spin" />
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-6 w-6 text-muted-foreground hover:text-rose-400"
+                        onClick={() => handleDeleteCategory(group.category!)}
+                      >
+                        <Trash2 className="h-3 w-3" />
+                      </Button>
+                    )}
+                  </div>
+                )}
+              </div>
               <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
                 {group.items.map((item) => {
                   const margin = item.price > 0 ? ((item.price - item.cost) / item.price) * 100 : 0;
@@ -314,6 +395,13 @@ export default function MenuPage() {
         item={editing}
         categories={categories}
         onSubmit={handleSubmit}
+      />
+
+      <CategoryFormDialog
+        open={catFormOpen}
+        onOpenChange={handleCatFormOpenChange}
+        category={editingCategory}
+        onSubmit={handleCategorySubmit}
       />
     </div>
   );

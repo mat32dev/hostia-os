@@ -9,3 +9,7 @@ build/
 android/app/build/
 android/.gradle/
 android/local.properties
+*.keystore
+playstore-credentials.json
+*.tsbuildinfo
+*.DS_Store

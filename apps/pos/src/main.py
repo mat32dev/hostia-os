@@ -77,6 +77,74 @@ def create_table(
     return crud.create_table(db, table, current_user.tenant_id)
 
 
+@app.put("/v1/tables/{table_id}", response_model=schemas.TableResponse)
+def update_table(
+    table_id: int,
+    table: schemas.TableUpdate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    db_table = crud.update_table(db, table_id, table, current_user.tenant_id)
+    if not db_table:
+        raise HTTPException(status_code=404, detail="Table not found")
+    return db_table
+
+
+@app.delete("/v1/tables/{table_id}")
+def delete_table(
+    table_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    result = crud.delete_table(db, table_id, current_user.tenant_id)
+    if not result:
+        raise HTTPException(status_code=404, detail="Table not found")
+    return {"status": "deleted"}
+
+
+# ─── Menu Categories ───
+@app.get("/v1/categories", response_model=list[schemas.CategoryResponse])
+def get_categories(
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    return crud.get_categories(db, current_user.tenant_id)
+
+
+@app.post("/v1/categories", response_model=schemas.CategoryResponse)
+def create_category(
+    category: schemas.CategoryCreate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    return crud.create_category(db, category, current_user.tenant_id)
+
+
+@app.put("/v1/categories/{category_id}", response_model=schemas.CategoryResponse)
+def update_category(
+    category_id: int,
+    category: schemas.CategoryUpdate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    db_category = crud.update_category(db, category_id, category, current_user.tenant_id)
+    if not db_category:
+        raise HTTPException(status_code=404, detail="Category not found")
+    return db_category
+
+
+@app.delete("/v1/categories/{category_id}")
+def delete_category(
+    category_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    result = crud.delete_category(db, category_id, current_user.tenant_id)
+    if not result:
+        raise HTTPException(status_code=404, detail="Category not found")
+    return {"status": "deleted"}
+
+
 # ─── Menu ───
 @app.get("/v1/menu")
 def get_menu(
