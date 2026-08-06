@@ -86,6 +86,12 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${space.variable}`}>
       <body className="font-sans">
         <script
+          async
+          src="https://stats.mat32.com/script.js"
+          data-website-id="1488c53f-f94a-49b4-94c1-9177cdd34268"
+          data-domains="hostia.solutions"
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
