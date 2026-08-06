@@ -13,6 +13,7 @@ export const nav = [
   { label: 'Results', href: '#results' },
   { label: 'Pricing', href: '#pricing' },
   { label: 'FAQ', href: '#faq' },
+  { label: 'Blog', href: '/blog/' },
 ];
 
 export const hero = {
@@ -290,6 +291,7 @@ export const footer = {
         { label: 'Process', href: '#process' },
         { label: 'Results', href: '#results' },
         { label: 'Pricing', href: '#pricing' },
+        { label: 'Blog', href: '/blog/' },
         { label: 'Contact', href: '#contact' },
       ],
     },
