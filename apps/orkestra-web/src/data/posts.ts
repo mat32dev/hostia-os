@@ -1130,6 +1130,596 @@ export const posts: Post[] = [
     ],
     cta: '¿Quieres un stack de agentes sin lock-in? Construyámoslo contigo.',
   },
+  {
+    slug: 'deepseek-harness-que-es',
+    title: '¿Qué es un agent harness? (y por qué DeepSeek apuesta por él)',
+    description:
+      'Te explicamos qué es un agent harness, en qué se diferencia de un simple chatbot o un framework de agentes, y por qué DeepSeek Ha construye todo el stack sobre esta arquitectura abierta.',
+    keywords: [
+      'que es un agent harness',
+      'agent harness definicion',
+      'deepseek harness que es',
+      'harness vs chatbot ia',
+      'framework de agentes ia',
+    ],
+    date: '2026-08-16',
+    readMinutes: 6,
+    category: 'Guías',
+    icon: 'wrench',
+    accent: 'from-blue-500 to-cyan-500',
+    lang: 'es',
+    excerpt:
+      'Un agent harness no es un chatbot ni un framework cualquiera: es la infraestructura que sostiene al agente — modelo, tools, sesiones, loops — y que DeepSeek ha construido abierta y modular para evitar el lock-in.',
+    sections: [
+      {
+        heading: 'De qué hablamos cuando hablamos de harness',
+        paragraphs: [
+          'En jerga de agentes, un harness es la infraestructura que sostiene al agente: el armazón donde se enchufa el modelo, las herramientas (tools), las sesiones, los loops de razonamiento y la interfaz. Es el "motor" sobre el que corre la inteligencia.',
+          'La confusión típica es pensar que el agente ES el modelo. No: el modelo es una pieza más. El harness es todo lo demás que lo convierte en algo útil — y cuando es abierto, esa distinción se vuelve estratégica.',
+        ],
+      },
+      {
+        heading: 'Chatbot vs framework vs harness',
+        table: {
+          headers: ['Tipo', 'Qué es', 'Ejemplo 2026'],
+          rows: [
+            ['Chatbot', 'Interfaz de conversación', 'ChatGPT, Gemini'],
+            ['Framework de agentes', 'Librería para construir agentes', 'LangChain, CrewAI'],
+            ['Agent harness', 'Infraestructura completa del agente', 'DeepSeek Harness'],
+          ],
+        },
+        paragraphs: [
+          'Un harness va un paso más allá del framework: no solo te da piezas para construir, te da el armazón completo con modelo, tools, sesiones y loops ya integrados y enchufables. Es lo que separa "construir un agente" de "hacer que un agente funcione de verdad".',
+        ],
+      },
+      {
+        heading: 'Por qué DeepSeek apuesta por un harness abierto',
+        paragraphs: [
+          'DeepSeek Harness es open-source (MIT) y está construido sobre Cordis con una filosofía "everything is a plugin": cada capacidad es una pieza intercambiable. Esto responde a una decisión estratégica clara: competir con los ecosistemas cerrados (Claude, GPT) ofreciendo libertad.',
+          'Para el usuario significa tres cosas: puedes autoalojarlo (control de datos y coste), puedes cambiar de modelo sin migrar de herramienta, y puedes extenderlo a tu flujo en vez de adaptarte al de otro.',
+        ],
+        bullets: [
+          'MIT y self-hostable: sin cuotas impuestas.',
+          'Agnóstico de modelo: conectas el que quieras.',
+          'Sin vendor lock-in: cada pieza es reemplazable.',
+        ],
+      },
+      {
+        heading: 'La parte realista: ejecutar en local',
+        paragraphs: [
+          'Hay que ser honestos sobre una tentación frecuente: correr estos modelos en tu propio hardware. La realidad de 2026 es que los modelos frontier de razonamiento (los que dan los mejores resultados de código) necesitan decenas o cientos de gigabytes de VRAM.',
+          'Un modelo de 70B cuantizado ocupa ~40 GB de VRAM en Q4; un frontier de cientos de miles de millones de parámetros exige hardware de servidor (H100, H200, GB200) que cuesta decenas de miles de euros. Cuando la VRAM no alcanza, el modelo "se derrama" a RAM del sistema por PCIe y la latencia pasa de segundos a minutos: inutilizable.',
+          'La conclusión práctica: para usar los mejores modelos de código de 2026, la opción realista es API en la nube (DeepSeek V4 Flash, Kimi, Qwen...), no local. El local queda para modelos pequeños (1B-30B) en tareas ligeras, y para eso sirve el harness abierto conectado a Ollama.',
+        ],
+      },
+      {
+        heading: 'Conclusión',
+        paragraphs: [
+          'Un agent harness es la diferencia entre tener un modelo potente y tener un agente que trabaja para ti. DeepSeek lo ha construido abierto y modular, y esa decisión — combinada con la DeepSeek V4 Flash — lo convierte en la apuesta con mejor relación coste/control del ecosistema en 2026.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: '¿Un agent harness es un chatbot?',
+        a: 'No. Un chatbot es una interfaz de conversación; un harness es la infraestructura completa (modelo, tools, sesiones, loops) que sostiene al agente.',
+      },
+      {
+        q: '¿Puedo ejecutar DeepSeek en local?',
+        a: 'Los modelos frontier necesitan decenas de gigabytes de VRAM y hardware de servidor caro. Para tareas ligeras, un modelo pequeño vía Ollama es viable; para lo mejor de 2026, la API es la opción realista.',
+      },
+      {
+        q: '¿Qué diferencia a DeepSeek Harness de LangChain?',
+        a: 'LangChain es un framework (piezas para construir); DeepSeek Harness es un harness completo con modelo, tools y sesiones integrados y enchufables sobre Cordis.',
+      },
+      {
+        q: '¿Por qué es importante que sea open source?',
+        a: 'Porque elimina el vendor lock-in: puedes autoalojarlo, cambiar de modelo y extenderlo sin depender de un proveedor.',
+      },
+    ],
+    cta: '¿Quieres entender qué stack de agentes encaja con tu negocio? Te lo montamos.',
+  },
+  {
+    slug: 'deepseek-v4-flash-vs-v4-pro',
+    title: 'DeepSeek V4 Flash vs V4 Pro: cuál usar en 2026',
+    description:
+      'Comparamos DeepSeek V4 Flash y V4 Pro en benchmarks y precio: por qué la Flash, más barata, supera a la Pro en Terminal Bench y cuándo compensa pagar más por la top.',
+    keywords: [
+      'deepseek v4 flash vs v4 pro',
+      'deepseek v4 flash vs pro',
+      'deepseek v4 pro benchmarks',
+      'que modelo deepseek elegir',
+      'deepseek v4 flash precio',
+    ],
+    date: '2026-08-16',
+    readMinutes: 7,
+    category: 'DeepSeek',
+    icon: 'gauge',
+    accent: 'from-blue-500 to-cyan-500',
+    lang: 'es',
+    excerpt:
+      'La V4 Flash gana en rendimiento de agente de código y es hasta 14x más barata que la V4 Pro. Esta comparativa te dice cuándo la Flash es suficiente y en qué casos puntuales la Pro tiene sentido.',
+    sections: [
+      {
+        heading: 'Un resultado sorprendente en Terminal Bench',
+        paragraphs: [
+          'En la evaluación Terminal Bench 2.1, la DeepSeek V4 Flash obtiene 82.7 frente a los 72.1 de la V4 Pro. Es decir: el modelo "ligero" supera al "top" en tareas reales de agente de código en terminal.',
+          'Esto invierte la intuición habitual de que "más caro = mejor". Para la mayoría de flujos de agente de código, la Flash es la opción correcta.',
+        ],
+      },
+      {
+        heading: 'Precios desde el 16/8/2026',
+        table: {
+          headers: ['Modelo', 'Input (cache miss)', 'Output pico', 'Output valle'],
+          rows: [
+            ['V4 Flash', '$0.22 / M', '$1.32 / M', '$0.66 / M'],
+            ['V4 Pro', '$3.96 / M', '$1.98 / M', '—'],
+          ],
+        },
+        paragraphs: [
+          'La diferencia es enorme: la V4 Pro puede llegar a ser hasta 14x más cara que la Flash. Además, el output de la Flash en horas valle se descuenta a la mitad, lo que la hace todavía más atractiva para automatizaciones en horario nocturno.',
+        ],
+      },
+      {
+        heading: 'Cuándo usar V4 Flash',
+        paragraphs: [
+          'Para el grueso de trabajo: agentes de código, refactors, tests, automatizaciones, procesamiento de documentación. El thinking viene habilitado por defecto en la API, y su rendimiento en tareas de terminal la convierte en la elección por defecto de 2026.',
+        ],
+        bullets: [
+          'Rendimiento de agente superior (82.7 vs 72.1).',
+          'Hasta 14x más barata que la Pro.',
+          'Ideal para automatizaciones y uso intensivo.',
+          'La usamos como base del stack de agentes de HosT.ia.',
+        ],
+      },
+      {
+        heading: 'Cuándo pagar por V4 Pro',
+        paragraphs: [
+          'La Pro sigue siendo el modelo "techo" de DeepSeek, útil cuando necesitas la máxima capacidad en tareas muy complejas o cuando quieres comparar a propósito contra lo mejor disponible. Pero para el día a día, el coste extra rara vez se traduce en resultados proporcionales.',
+        ],
+      },
+      {
+        heading: 'Veredicto',
+        paragraphs: [
+          'En 2026, la DeepSeek V4 Flash es la mejor relación calidad/precio del mercado de agentes de código. La Pro existe para casos concretos, no para ser la predeterminada. Si estás montando un stack, empieza por la Flash.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: '¿La V4 Flash es peor que la V4 Pro?',
+        a: 'No necesariamente. En Terminal Bench 2.1 la Flash (82.7) supera a la Pro (72.1) en tareas de agente de código en terminal.',
+      },
+      {
+        q: '¿Cuánto más cara es la V4 Pro?',
+        a: 'Puede llegar a ser hasta 14x más cara que la Flash según el uso.',
+      },
+      {
+        q: '¿La Flash tiene thinking?',
+        a: 'Sí, el modo thinking viene habilitado por defecto en la API.',
+      },
+      {
+        q: '¿Cuál me recomiendas para automatizaciones?',
+        a: 'La V4 Flash: mejor rendimiento por precio, ideal para uso intensivo y horas valle.',
+      },
+    ],
+    cta: '¿Montamos tu automatización sobre DeepSeek V4 Flash? Te lo dejamos funcionando.',
+  },
+  {
+    slug: 'deepseek-v4-flash-subida-precios-1100',
+    title: 'La subida de precios de DeepSeek del 1100%: qué significa y por qué importa',
+    description:
+      'DeepSeek subió precios hasta un 1100% en algunos endpoints. Analizamos por qué, cómo afecta a tu stack y cómo la V4 Flash mantiene el equilibrio calidad/precio frente a la subida.',
+    keywords: [
+      'deepseek subida de precios',
+      'deepseek precios 2026',
+      'deepseek v4 flash precios',
+      'subida 1100 por ciento deepseek',
+      'deepseek precios api',
+    ],
+    date: '2026-08-16',
+    readMinutes: 6,
+    category: 'DeepSeek',
+    icon: 'trending-up',
+    accent: 'from-blue-500 to-cyan-500',
+    lang: 'es',
+    excerpt:
+      'Una subida de precios de hasta el 1100% generó ruido en agosto de 2026. Esto es lo que pasó, qué modelo se encareció de verdad y por qué la V4 Flash sigue siendo la apuesta segura.',
+    sections: [
+      {
+        heading: 'Qué pasó en agosto de 2026',
+        paragraphs: [
+          'DeepSeek actualizó su pricing el 16 de agosto de 2026 con subidas que en algunos endpoints alcanzaron el 1100%. La cifra sonó alarmante (y los titulares la amplificaron), pero conviene distinguir qué es ruido y qué es fondo.',
+          'La clave: la subida afectó sobre todo a los endpoints de máximo rendimiento y a modelos de alta demanda en pico. No fue una subida uniforme en toda la familia.',
+        ],
+      },
+      {
+        heading: 'Qué se encareció y qué no',
+        paragraphs: [
+          'Los modelos "flash" y de menor coste mantuvieron precios competitivos, mientras que los de mayor capacidad vieron subidas mayores. DeepSeek defendió el ajuste como una gestión de demanda: cuando la capacidad satura, el precio sube para priorizar y financiar infraestructura.',
+          'Para la mayoría de usos de agente de código y automatización, la DeepSeek V4 Flash sigue costando $0.22 por millón de tokens de entrada (cache miss) y $1.32 de salida en pico, con valores a mitad de precio en horas valle.',
+        ],
+      },
+      {
+        heading: 'Por qué la V4 Flash es la vacuna',
+        paragraphs: [
+          'La lección de la subida es que no debes atarte a un único endpoint top. Un stack con un modelo flash como pieza principal — barato, rápido y con gran rendimiento de agente — es resistente a los vaivenes de precios.',
+          'Y como herramienta de cobertura, un harness abierto (como DeepSeek Harness) te permite cambiar de proveedor al instante si un precio se dispara: sin lock-in.',
+        ],
+        bullets: [
+          'La V4 Flash mantiene precios de entrada bajos ($0.22/M).',
+          'Horas valle descuentan el output a la mitad.',
+          'Un harness abierto = libertad de cambiar de modelo.',
+          'No construyas tu stack sobre un único endpoint caro.',
+        ],
+      },
+      {
+        heading: 'Lo que esto significa para tu negocio',
+        paragraphs: [
+          'Si montas automatizaciones o agentes de código de forma intensiva, la variable coste importa. La respuesta no es dejar de usar DeepSeek, es elegir el modelo adecuado (Flash) y la arquitectura adecuada (harness abierto) para no quedar a merced de una subida.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: '¿DeepSeek subió los precios un 1100%?',
+        a: 'En algunos endpoints de máxima demanda sí se llegaron a ver subidas de hasta el 1100%, pero no fue uniforme: los modelos flash mantuvieron precios competitivos.',
+      },
+      {
+        q: '¿Sigue siendo barata la V4 Flash?',
+        a: 'Sí: $0.22/M de entrada (cache miss) y $1.32 de salida en pico, con output a mitad de precio en horas valle.',
+      },
+      {
+        q: '¿Debo dejar de usar DeepSeek?',
+        a: 'No. Es usar el modelo adecuado (Flash) y no atarse a un único endpoint caro. Un harness abierto te protege.',
+      },
+      {
+        q: '¿Cómo me protejo de futuras subidas?',
+        a: 'Diversifica: un modelo flash como principal y un harness que permita cambiar de proveedor sin migrar.',
+      },
+    ],
+    cta: '¿Te preocupa el coste de tus automatizaciones? Diseñamos stacks resistentes a subidas de precio.',
+  },
+  {
+    slug: 'kimi-k3-vs-deepseek-v4',
+    title: 'Kimi K3 vs DeepSeek V4: el nuevo top chino es brutal… y caro',
+    description:
+      'Kimi K3 (Moonshot) es el nuevo fenómeno: 2.8T de parámetros, #1 en Frontend Code Arena, pero 3.5-4x más caro que DeepSeek. Comparamos si merece la pena o si la V4 Flash sigue siendo la opción realista.',
+    keywords: [
+      'kimi k3 vs deepseek',
+      'kimi k3 precios',
+      'kimi k3 benchmarks',
+      'moonshot kimi k3',
+      'mejor modelo chino 2026',
+    ],
+    date: '2026-08-16',
+    readMinutes: 8,
+    category: 'Comparativa',
+    icon: 'sparkles',
+    accent: 'from-blue-500 to-cyan-500',
+    lang: 'es',
+    excerpt:
+      'Kimi K3 es el nuevo gigante chino: 2.8 billones de parámetros y lidera el Frontend Code Arena. Pero a $3/$15 por millón de tokens (3.5-4x DeepSeek), la pregunta es si el extra vale lo que cuesta.',
+    sections: [
+      {
+        heading: 'Kimi K3: el modelo que ha puesto patas arriba el ranking',
+        paragraphs: [
+          'El 16 de julio de 2026, Moonshot lanzó Kimi K3: un modelo de 2.8 billones de parámetros (arquitectura Mixture of Experts, con solo 16 de 896 expertos activos por token) y una ventana de contexto de 1 millón de tokens.',
+          'El impacto fue inmediato: Kimi K3 se colocó #1 en Frontend Code Arena con 1679 puntos, saltando 17 posiciones desde el K2.6 y superando a Claude Fable 5. En los análisis independientes de Artificial Analysis, su Intelligence Index de 57 lo sitúa #4 de 189 modelos.',
+          'Es, según Moonshot, el primer modelo en la clase de los 3 billones de parámetros. Pero también es honesto un matiz: la propia Moonshot reconoce que "aún va por detrás de los modelos propietarios más potentes" en conjunto.',
+        ],
+      },
+      {
+        heading: 'El precio: aquí está el problema',
+        table: {
+          headers: ['Modelo', 'Input (cache miss)', 'Input (cache hit)', 'Output', 'Contexto'],
+          rows: [
+            ['Kimi K3', '$3.00 / M', '$0.30 / M', '$15.00 / M', '1M'],
+            ['Kimi K2.6 / K2.7 Code', '$0.95 / M', '$0.19 / M', '$4.00 / M', '256K'],
+            ['DeepSeek V4 Flash', '$0.22 / M', '—', '$1.32 / M', '—'],
+          ],
+        },
+        paragraphs: [
+          'Kimi K3 cuesta $3 por millón de tokens de entrada y $15 de salida: aproximadamente 3.5-4x más que la familia K2.6/K2.7 Code, y many veces más que la DeepSeek V4 Flash. Es un salto real en capacidad, pero también en coste.',
+          'Hay un alivio: el input con cache-hit baja a $0.30 (un 90% de descuento), lo que importa para agentes de código que reenvían contexto del repo en cada turno. Pero el output sigue siendo caro.',
+        ],
+      },
+      {
+        heading: '¿Cuándo merece la pena Kimi K3?',
+        paragraphs: [
+          'Si tu trabajo es frontend de alta calidad, diseño o tareas donde el 2.8T de parámetros marca la diferencia y el volumen es bajo, K3 es tentador. La cache de contexto (90% de descuento en input) lo hace viable en uso de agente donde el contexto se repite.',
+          'Pero para el día a día intensivo — automatizaciones, agentes de código en volumen, procesamiento de documentación — la DeepSeek V4 Flash gana en coste/rendimiento sin discusión.',
+        ],
+        bullets: [
+          'Kimi K3: máximo rendimiento, coste alto ($3/$15).',
+          'Cache-hit en input (-90%): clave para agentes con mucho contexto.',
+          'DeepSeek V4 Flash: la opción realista para volumen.',
+          'Estrategia: Kimi para lo fino, DeepSeek para el grueso.',
+        ],
+      },
+      {
+        heading: 'Veredicto realista',
+        paragraphs: [
+          'Kimi K3 es brillante y confirma que los modelos chinos ya no solo son baratos: son los mejores en cosas concretas. Pero "mucho mejor que DeepSeek pero mucho más caro" no es una recomendación automática: es una decisión de presupuesto.',
+          'Nuestra lectura: usa Kimi K3 como modelo de reserva para tareas puntuales de máxima exigencia y DeepSeek V4 Flash como caballo de batalla. La combinación es lo más inteligente de 2026.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: '¿Es Kimi K3 mejor que DeepSeek?',
+        a: 'En capacidades de techo sí (2.8T params, #1 Frontend Code Arena), pero cuesta 3.5-4x más. Para el día a día, DeepSeek V4 Flash ofrece mejor coste/rendimiento.',
+      },
+      {
+        q: '¿Cuánto cuesta Kimi K3?',
+        a: '$3/M de entrada (cache miss), $15/M de salida, con cache-hit de entrada a $0.30/M. Contexto de 1M de tokens.',
+      },
+      {
+        q: '¿Kimi K3 es open source?',
+        a: 'Moonshot anunció que los pesos llegarán (27/7/2026), pero es un modelo tan grande que ejecutarlo en local no es realista: necesita hardware de servidor.',
+      },
+      {
+        q: '¿Debo cambiar a Kimi K3?',
+        a: 'Solo para tareas puntuales de máxima exigencia. Para volumen y automatización, DeepSeek V4 Flash sigue siendo la opción racional.',
+      },
+    ],
+    cta: '¿No sabes qué modelo chino usar para qué? Te ayudamos a elegir tu stack.',
+  },
+  {
+    slug: 'grok-46-vs-deepseek-v4',
+    title: 'Grok 4.6 vs DeepSeek V4: el pulso EEUU-China en modelos económicos',
+    description:
+      'Grok 4.6 de xAI irrumpe a $2/$6 con 500K de contexto, y Grok 4 Fast a $0.20/$0.50 con 2M. Comparamos la oferta americana frente a la china (DeepSeek, Kimi) y qué elegir en 2026.',
+    keywords: [
+      'grok 4.6 vs deepseek',
+      'grok 4.6 precios',
+      'grok 4 fast precios',
+      'xai grok 4.6',
+      'mejor modelo economico 2026',
+    ],
+    date: '2026-08-16',
+    readMinutes: 7,
+    category: 'Comparativa',
+    icon: 'flame',
+    accent: 'from-blue-500 to-cyan-500',
+    lang: 'es',
+    excerpt:
+      'xAI contraataca en el terreno del precio: Grok 4.6 a $2/$6 y Grok 4 Fast a $0.20/$0.50. Esto cambia el tablero frente a DeepSeek y Kimi en la guerra de los modelos baratos de 2026.',
+    sections: [
+      {
+        heading: 'xAI deja de ser solo el modelo "de X"',
+        paragraphs: [
+          'Durante 2026, xAI (ahora bajo el ecosistema SpaceXAI/xAI) ha pasado de ser conocido por el chatbot de X a ser un actor serio en la API de modelos. El movimiento clave: competir en precio, no solo en marquesina.',
+          'Grok 4.6 llega a $2 por millón de tokens de entrada y $6 de salida, con 500K de contexto. Y para el extremo barato, Grok 4 Fast se desploma a $0.20 de entrada y $0.50 de salida, con una ventana de contexto enorme de 2M de tokens.',
+        ],
+      },
+      {
+        heading: 'Tabla comparativa 2026',
+        table: {
+          headers: ['Modelo', 'Input / M', 'Output / M', 'Contexto', 'Familia'],
+          rows: [
+            ['Grok 4 Fast', '$0.20', '$0.50', '2M', 'xAI (US)'],
+            ['DeepSeek V4 Flash', '$0.22', '$1.32 (pico)', '—', 'DeepSeek (CN)'],
+            ['Grok 4.6', '$2.00', '$6.00', '500K', 'xAI (US)'],
+            ['Kimi K3', '$3.00', '$15.00', '1M', 'Moonshot (CN)'],
+          ],
+        },
+        paragraphs: [
+          'Lo interesante es que Grok 4 Fast empata prácticamente en precio de entrada con DeepSeek V4 Flash, pero ofrece 2M de contexto (superior a casi todo). Para tareas de contexto largo a coste bajo, es una alternativa real.',
+          'En el extremo medio-alto, Grok 4.6 y Kimi K3 compiten por el mismo perfil de usuario, con precios comparables ($2/$6 vs $3/$15).',
+        ],
+      },
+      {
+        heading: 'Por qué el contexto importa tanto en 2026',
+        paragraphs: [
+          'La guerra ya no es solo de calidad: es de contexto y precio. Un modelo con 2M de tokens a $0.20 de entrada te permite meter documentos enteros, codebases o historial largo sin fragmentar. Es una ventaja operativa enorme para agentes y RAG.',
+          'DeepSeek sigue mandando en el equilibrio general de agente de código (Terminal Bench), pero Grok 4 Fast ha creado un hueco claro para trabajos de contexto largo a coste mínimo.',
+        ],
+      },
+      {
+        heading: 'Veredicto práctico',
+        paragraphs: [
+          'No necesitas elegir uno: necesitas un stack que los mezcle. DeepSeek V4 Flash para agente de código de base, Grok 4 Fast para contexto largo barato, Kimi K3 para lo fino de frontera cuando el presupuesto lo permite.',
+          'La buena noticia de 2026: la competencia brutal entre EEUU y China ha tirado los precios a mínimos. Aprovecharlo es cuestión de arquitectura, no de fe en una marca.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: '¿Grok 4.6 es mejor que DeepSeek?',
+        a: 'Depende. Grok 4.6 ($2/$6, 500K) es competitivo, pero DeepSeek V4 Flash mantiene mejor rendimiento de agente de código por precio.',
+      },
+      {
+        q: '¿Cuánto cuesta Grok 4 Fast?',
+        a: '$0.20/M de entrada y $0.50/M de salida, con 2M de tokens de contexto.',
+      },
+      {
+        q: '¿Cuál es el modelo más barato para contexto largo?',
+        a: 'Grok 4 Fast: 2M de contexto a $0.20/M de entrada es difícil de batir a ese precio.',
+      },
+      {
+        q: '¿Debo sustituir DeepSeek por Grok?',
+        a: 'No necesariamente. Lo mejor es un stack mixto: DeepSeek para agente de código, Grok para contexto largo, Kimi para frontera.',
+      },
+    ],
+    cta: '¿Montamos un stack multi-modelo que aproveche los mejores precios del mercado?',
+  },
+  {
+    slug: 'modelos-ia-en-local-realidad-2026',
+    title: '¿Ejecutar IA en local? La realidad de 2026 (y cuándo sí merece la pena)',
+    description:
+      'Ejecutar modelos frontier de IA en tu propio hardware es el sueño de muchos. La realidad de 2026: los buenos modelos necesitan tarjetas de decenas de miles de euros. Te contamos qué puedes correr y qué no.',
+    keywords: [
+      'ejecutar ia en local',
+      'llm en local requisitos',
+      'nemotron en local',
+      'cuanta ram para llm',
+      'gpu para ia 2026',
+    ],
+    date: '2026-08-16',
+    readMinutes: 7,
+    category: 'Guías',
+    icon: 'cpu',
+    accent: 'from-blue-500 to-cyan-500',
+    lang: 'es',
+    excerpt:
+      'El local es realista solo para modelos pequeños (1B-30B). Un 70B necesita ~40GB de VRAM; un frontier, hardware de servidor. Esta es la matemática que explica por qué 2026 corre en la nube.',
+    sections: [
+      {
+        heading: 'La fantasía del local y la realidad del hardware',
+        paragraphs: [
+          'Correr un LLM en tu propia máquina suena ideal: privacidad, sin dependencia de APIs, coste fijo. Pero 2026 ha dejado claro que los modelos que de verdad sobresalen en código y razonamiento necesitan hardware que no cabe en una torre doméstica.',
+          'La restricción dura es la VRAM, no el disco ni la RAM del sistema. El modelo tiene que caber en memoria de GPU, y eso cuesta dinero real.',
+        ],
+      },
+      {
+        heading: 'La matemática de la VRAM',
+        table: {
+          headers: ['Modelo', 'VRAM necesaria (Q4)', 'Hardware típico'],
+          rows: [
+            ['7B', '~8 GB', 'RTX 4090, Mac 16 GB'],
+            ['27-30B (Nano)', '~16-24 GB', 'RTX 4090 24 GB, MBP'],
+            ['70B', '~40 GB', '2x 4090 / A100'],
+            ['Frontier (Nemotron Ultra 550B)', 'Cientos de GB', 'H100, H200, GB200'],
+          ],
+        },
+        paragraphs: [
+          'Un modelo de 70B cuantizado a Q4_K_M ocupa ~40 GB de VRAM. Para un frontier de cientos de miles de millones de parámetros — como el Nvidia Nemotron Ultra 550B, que Nvidia despliega sobre H100/H200/GB200 — no existe tarjeta doméstica que valga.',
+          'Cuando la VRAM no alcanza, el modelo se derrama por PCIe a la RAM del sistema. La latencia salta de segundos a minutos: para un agente de código en producción, inutilizable.',
+        ],
+      },
+      {
+        heading: 'Qué modelo de Nvidia corre en local: Nemotron Nano',
+        paragraphs: [
+          'Nvidia tiene dos mundos. El Nemotron Ultra (550B y similares) es para datacenter: H100, H200, GB200. Pero Nvidia también ofrece Nemotron 3 Nano Omni, un MoE de ~30B diseñado para local y on-device: corre en una GPU de 24 GB o una Mac con memoria unificada suficiente.',
+          'El patrón se repite en todo el ecosistema: cada fabricante tiene su gama pequña (Nano, Flash, small) para local y su gama grande para la nube. Nadie espera que corras la grande en casa.',
+        ],
+      },
+      {
+        heading: 'Alternativas económicas reales',
+        paragraphs: [
+          'Si quieres IA de calidad sin pagar tarjetas de miles de euros, las APIs de 2026 son absurdamente baratas: DeepSeek V4 Flash ($0.22/M de entrada), Grok 4 Fast ($0.20/M, con 2M de contexto), Qwen, Kimi K2.5 ($0.60/M). Por unos céntimos al día tienes rendimiento de frontera.',
+          '¿Y el local entonces? Para tareas ligeras, modelos pequeños (1B-30B) vía Ollama, privacidad y funcionamiento offline. Para lo que da dinero, la API y un harness abierto que permita mezclar ambos.',
+        ],
+        bullets: [
+          'Local (1B-30B): privacidad, offline, tareas ligeras.',
+          'Local (70B+): hardware de miles de euros, rara vez sensato.',
+          'API (DeepSeek, Grok, Qwen, Kimi): frontera barata.',
+          'Estrategia: harness abierto que mezcle local + nube.',
+        ],
+      },
+      {
+        heading: 'Conclusión realista',
+        paragraphs: [
+          'No dejes que el hype del "local" te haga comprar hardware que no necesitas. La combinación ganadora de 2026 es simple: modelos pequeños en local para lo privado y rápido, y modelos de frontera por API para lo que exige calidad. Y un harness abierto que los combine sin atarte a nadie.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: '¿Puedo correr un LLM en mi ordenador?',
+        a: 'Sí, los modelos pequeños (1B-30B) vía Ollama. Un 70B ya exige ~40GB de VRAM, y los frontier, hardware de datacenter.',
+      },
+      {
+        q: '¿Cuánta RAM necesito para IA local?',
+        a: '32GB es el mínimo, 64GB cómodo para offloading de modelos de 30B. Pero la VRAM de GPU es la limitación real.',
+      },
+      {
+        q: '¿Nemotron corre en local?',
+        a: 'El Nemotron 3 Nano Omni (~30B) sí. El Nemotron Ultra 550B no: requiere H100/H200/GB200 de datacenter.',
+      },
+      {
+        q: '¿Qué es más barato, local o API?',
+        a: 'Para modelos de calidad, la API es muchísimo más barata (céntimos al día). El local solo compensa en modelos pequeños y tareas ligeras.',
+      },
+    ],
+    cta: '¿Quieres un stack de IA que mezcle local y nube con el mejor coste? Te lo diseñamos.',
+  },
+  {
+    slug: 'modelos-chinos-dominan-ecosistema-ia',
+    title: 'Por qué los modelos chinos están dominando el ecosistema (destilación + open source)',
+    description:
+      'DeepSeek R1, Qwen, Kimi, GLM y MiniMax: los modelos open-source chinos han superado a los americanos en descargas de Hugging Face. Cómo la destilación y la estrategia open les da la ventaja.',
+    keywords: [
+      'modelos chinos dominan ia',
+      'deepseek r1 destilacion',
+      'qwen vs llama descargas',
+      'open source ia china',
+      'destilacion modelos ia',
+    ],
+    date: '2026-08-16',
+    readMinutes: 8,
+    category: 'Análisis',
+    icon: 'globe',
+    accent: 'from-blue-500 to-cyan-500',
+    lang: 'es',
+    excerpt:
+      'Un año después del "momento DeepSeek", los modelos chinos open-source dominan: Qwen superó a Llama en descargas y nuevos estudios confirman que China lidera el open. Esto es cómo lo han hecho.',
+    sections: [
+      {
+        heading: 'El momento DeepSeek, un año después',
+        paragraphs: [
+          'Lo que en enero de 2025 llamaron el "momento DeepSeek" (un modelo abierto, barato y competitivo sacudió Occidente) se ha convertido en una tendencia estructural. Un año después, DeepSeek R1 sigue siendo el modelo más "que gusta" de Hugging Face, y la ola no se detuvo ahí.',
+          'La lista de laboratorios chinos que siguen el mismo blueprint es larga: DeepSeek, Moonshot (Kimi), Alibaba (Qwen), Z.ai (antiguo Zhipu, GLM) y MiniMax. Todos publican pesos abiertos, iteran rápido y compiten en precio.',
+        ],
+      },
+      {
+        heading: 'Los datos que lo demuestran',
+        paragraphs: [
+          'No es percepción: es descarga. La familia Qwen de Alibaba ha superado a los modelos Llama de Meta en descargas acumuladas de Hugging Face en 2025-2026, y un estudio del MIT concluyó que los modelos open-source chinos han superado a los estadounidenses en descargas totales.',
+          'A nivel de rendimiento, la brecha también se cierra: en el composite empresarial de Vals AI, modelos como GLM-5 (60.7%) y Kimi K2.5 (59.7%) quedan a solo 5-6 puntos de Claude Opus 4.6 (66%), pero a 10-180x menos coste de API.',
+        ],
+        table: {
+          headers: ['Métrica', 'Modelos USA', 'Modelos China', 'Brecha'],
+          rows: [
+            ['Descargas HF', 'Llama etc.', 'Qwen + chinos', 'China lidera'],
+            ['Enterprise composite', 'Claude Opus 4.6 (66%)', 'GLM-5 (60.7%)', '5-6 puntos'],
+            ['Coste API (input/M)', '$5 (Claude)', 'Qwen 3.5 $0.48, DeepSeek $0.028', '10-180x más barato'],
+          ],
+        },
+      },
+      {
+        heading: 'El papel de la destilación',
+        paragraphs: [
+          'La destilación es la técnica de usar un modelo grande (teacher) para entrenar a uno más pequeño (student) que hereda buena parte del comportamiento con mucho menos coste de inferencia. DeepSeek la usó a fondo, y el efecto fue doble.',
+          'Primero, democratizó: distilaciones pequeñas de DeepSeek corren en hardware modesto, repartiendo la inteligencia del modelo grande. Segundo, aceleró el ciclo: los laboratorios chinos iteran sobre modelos each otros y publicado pesos que reentrenan rápido. El resultado es una rueda de innovación abierta que Occidente, con modelos cerrados, no replica.',
+          'La ironía: DeepSeek, el gran destilador de frontera, fue a su vez acusado de basarse en materia de OpenAI. El debate ético existe, pero el impacto industrial es innegable.',
+        ],
+      },
+      {
+        heading: 'Qué significa para tu negocio',
+        paragraphs: [
+          'Para quien construye productos con IA, la ventaja china es directa: calidad cercana a la frontera a una fracción del coste. DeepSeek R1, Qwen, Kimi y GLM son la razón de que 2026 tenga tantos stacks de agentes viables a precios de céntimos.',
+          'Y la estrategia open les da lo más valioso: distribución. Cada desarrollador que descarga Qwen o DeepSeek se convierte en embajador. Frente al cerrado de Anthropic u OpenAI, esa es la ventaja competitiva duradera.',
+        ],
+      },
+      {
+        heading: 'Conclusión',
+        paragraphs: [
+          'China no solo ha alcanzado a Occidente en IA: ha elegido una estrategia (abierta, barata y rápida) que está ganando en adopción. La destilación y el open source son las palancas. Para las empresas, la lección práctica es clara: el mejor coste/rendimiento de 2026 lo dan los modelos chinos.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: '¿Están los modelos chinos dominando la IA?',
+        a: 'En el open source sí: Qwen superó a Llama en descargas y un estudio del MIT confirma que los modelos chinos superan a los US en descargas totales de HF.',
+      },
+      {
+        q: '¿Qué es la destilación de modelos?',
+        a: 'Entrenar un modelo pequeño (student) usando a uno grande (teacher) como guía, heredando capacidades con menos coste. DeepSeek la popularizó.',
+      },
+      {
+        q: '¿Qué laboratorios chinos son relevantes?',
+        a: 'DeepSeek (R1/V4), Moonshot (Kimi K3), Alibaba (Qwen), Z.ai (GLM) y MiniMax, entre otros.',
+      },
+      {
+        q: '¿Debo usar modelos chinos en mi negocio?',
+        a: 'Por coste y rendimiento, son la mejor opción de 2026 para muchos casos. Vigila requisitos regulatorios según tu industria y región.',
+      },
+    ],
+    cta: '¿Quieres aprovechar los mejores modelos del ecosistema en tu negocio? Te ayudamos.',
+  },
 ];
 
 export const getPostBySlug = (slug: string) => posts.find((p) => p.slug === slug);
