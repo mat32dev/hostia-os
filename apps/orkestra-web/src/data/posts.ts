@@ -939,6 +939,197 @@ export const posts: Post[] = [
     ],
     cta: '¿Montamos tu stack de agentes en producción? Hablemos de tu caso.',
   },
+  {
+    slug: 'deepseek-harness-vs-claude-code-vs-codex',
+    title: 'DeepSeek Harness vs Claude Code vs Codex: comparativa 2026',
+    description:
+      'Comparamos DeepSeek Harness con Claude Code y OpenAI Codex en 2026: apertura, cambio de modelo, tools, coste y vendor lock-in. Cuál elegir por tu stack, no por hype.',
+    keywords: [
+      'deepseek harness vs claude code',
+      'deepseek harness vs codex',
+      'deepseek harness vs claude code vs codex',
+      'claude code vs codex 2026',
+      'mejor agente de codigo 2026',
+    ],
+    date: '2026-08-16',
+    readMinutes: 7,
+    category: 'Comparativa',
+    icon: 'scale',
+    accent: 'from-blue-500 to-cyan-500',
+    lang: 'es',
+    excerpt:
+      'Tres formas de hacer agentes de código: cerrado y pulido (Claude Code, Codex) vs abierto y agnóstico (DeepSeek Harness). Esto es lo que cambia de verdad para tu equipo.',
+    sections: [
+      {
+        heading: 'Dos filosofías enfrentadas',
+        paragraphs: [
+          'En 2026 hay dos formas de entender un agente de código. La americana (Claude Code, Codex) apuesta por una caja cerrada y pulida, atada a un ecosistema. La china y open-source (DeepSeek Harness) apuesta por un armazón abierto donde modelo, tools y loop son piezas intercambiables.',
+          'La pregunta no es "cuál es mejor", sino "cuál encaja con tu stack y tu presupuesto". Esta comparativa te da los criterios para decidir sin dejarte llevar por el nombre.',
+        ],
+      },
+      {
+        heading: 'Tabla comparativa 2026',
+        table: {
+          headers: ['Criterio', 'DeepSeek Harness', 'Claude Code', 'OpenAI Codex'],
+          rows: [
+            ['Código', 'Open-source (MIT)', 'Cerrado', 'Cerrado'],
+            ['Cambio de modelo', 'Cualquiera (plugin)', 'Claude (fijado)', 'GPT (fijado)'],
+            ['Arquitectura', 'Todo-por-plugin (Cordis)', 'Caja cerrada', 'Caja cerrada'],
+            ['Self-hosting', 'Sí', 'No', 'No'],
+            ['Vendor lock-in', 'No', 'Sí', 'Sí'],
+            ['Coste modelo', 'El que conectes', 'Claude API', 'GPT API'],
+          ],
+        },
+        paragraphs: [
+          'La diferencia estructural es la apertura. Con DeepSeek Harness puedes conectar DeepSeek, OpenAI, Claude o un modelo local vía Ollama; con Claude Code y Codex estás atado al modelo del fabricante. Para equipos que ya mezclan modelos, o que quieren controlar coste, esto es decisivo.',
+        ],
+      },
+      {
+        heading: 'Cuándo elegir Claude Code o Codex',
+        paragraphs: [
+          'Si ya vives en el ecosistema de Anthropic u OpenAI, su UX, integración y soporte son imbatibles. Son herramientas maduras, con buena documentación y un flujo pulido. La contra es el pricing atado a su API y el lock-in: si mañana quieres cambiar de modelo, cambias de herramienta.',
+        ],
+        bullets: [
+          'Máxima integración con su ecosistema (Claude / GPT).',
+          'UX madura y soporte empresarial.',
+          'Lock-in: no puedes cambiar de modelo sin migrar.',
+          'Coste escala con uso intensivo en su API.',
+        ],
+      },
+      {
+        heading: 'Cuándo elegir DeepSeek Harness',
+        paragraphs: [
+          'Si tu prioridad es no depender de un proveedor, controlar el coste o ejecutar tu propio stack, DeepSeek Harness gana. Es MIT, self-hostable, y como todo es un plugin puedes conectar la DeepSeek V4 Flash (la referencia calidad/precio del 2026) o cualquier otro modelo.',
+          'Es joven (Developer Preview, agosto 2026) y menos pulido, pero marca la dirección del ecosistema abierto. Para un equipo técnico que valora control, es la apuesta más coherente.',
+        ],
+        bullets: [
+          'MIT y self-hostable: control total de datos y coste.',
+          'Agnóstico de modelo: conecta el que quieras.',
+          'Más joven y menos pulido que los cerrados — evalúa según tu caso.',
+        ],
+      },
+      {
+        heading: 'Veredicto práctico',
+        paragraphs: [
+          'No hay ganador universal: hay ganador por perfil. Si quieres la mejor experiencia con un ecosistema cerrado, Claude Code o Codex. Si quieres apertura, control de coste y portabilidad de modelo — y sobre todo si trabajas con DeepSeek V4 Flash —, DeepSeek Harness es la elección más lógica de 2026.',
+        ],
+        bullets: [
+          'Ecosistema + UX pulida → Claude Code o Codex.',
+          'Coste, datos y portabilidad → DeepSeek Harness.',
+          'Rendimiento barato → V4 Flash dentro de un harness abierto.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: '¿Qué es mejor, Claude Code o DeepSeek Harness?',
+        a: 'Depende. Claude Code gana en pulido e integración con Anthropic; DeepSeek Harness gana en apertura, self-hosting y libertad de modelo. Es cerrado vs abierto, no mejor vs peor.',
+      },
+      {
+        q: '¿Codex es open source?',
+        a: 'No, OpenAI Codex es un producto cerrado atado a GPT.',
+      },
+      {
+        q: '¿Puedo usar DeepSeek Harness con Claude o GPT?',
+        a: 'Sí. Como todo es un plugin, puedes conectar modelos de distintos proveedores, incluidos Claude, GPT y locales vía Ollama.',
+      },
+      {
+        q: '¿Cuál es más barato?',
+        a: 'El coste depende del modelo. Con un harness abierto y DeepSeek V4 Flash obtienes rendimiento alto a una fracción del precio de Claude API o GPT API.',
+      },
+    ],
+    cta: '¿No sabes qué stack de agentes te conviene? Te ayudamos a decidir.',
+  },
+  {
+    slug: 'deepseek-harness-cordis-plugins',
+    title: 'DeepSeek Harness y Cordis: cómo funciona «everything is a plugin»',
+    description:
+      'Una inmersión técnica en Cordis, el meta-framework sobre el que se construye DeepSeek Harness: cómo gestiona plugins, servicios y eventos, y por qué su arquitectura todo-por-plugin es su gran ventaja.',
+    keywords: [
+      'deepseek harness cordis',
+      'deepseek harness plugins',
+      'cordis meta framework',
+      'everything is a plugin deepseek',
+      'arquitectura deepseek harness',
+    ],
+    date: '2026-08-16',
+    readMinutes: 8,
+    category: 'DeepSeek',
+    icon: 'boxes',
+    accent: 'from-blue-500 to-cyan-500',
+    lang: 'es',
+    excerpt:
+      'La arquitectura que hace a DeepSeek Harness diferente: sobre Cordis, cada capacidad — modelo, tools, skills, sesiones, loops, UI — es un plugin intercambiable que colabora por servicios y eventos.',
+    sections: [
+      {
+        heading: 'Por qué la arquitectura importa más que el nombre',
+        paragraphs: [
+          'La mayoría de agentes de código se describen por su marca. DeepSeek Harness debería describirse por su arquitectura, porque es ahí donde está la diferencia real: todo es un plugin, sobre un meta-framework llamado Cordis.',
+          'Esto no es marketing. Cambia la forma en que usas, extiendes y mantienes el agente, y elimina el vendor lock-in que domina el resto del mercado de agentes de código.',
+        ],
+      },
+      {
+        heading: 'Qué es Cordis',
+        paragraphs: [
+          'Cordis no implementa el agente en sí: es un meta-framework que solo gestiona la carga, descarga y dependencias de plugins. Es la capa que da estructura al caos de piezas intercambiables de DeepSeek Harness.',
+          'Los plugins colaboran entre sí mediante dos mecanismos: servicios y eventos. Un plugin puede proveer un servicio (por ejemplo, acceso al shell) que otro consume, o emitir un evento (por ejemplo, "sesión iniciada") al que otros se suscriben. Esto los mantiene desacoplados y fáciles de sustituir.',
+        ],
+        bullets: [
+          'Servicios: un plugin expone capacidades que otros usan.',
+          'Eventos: los plugins emiten y escuchan señales sin acoplarse.',
+          'Desacoplado: cambiar una pieza no rompe el resto.',
+          'Node.js: npx @deepseek-ai/dsh web lanza la Web UI.',
+        ],
+      },
+      {
+        heading: 'Qué piezas son plugins',
+        paragraphs: [
+          'La lista es ambiciosa y es lo que hace al harness genuinamente reemplazable en cada capa.',
+        ],
+        bullets: [
+          'Modelos: DeepSeek, OpenAI, Anthropic o locales vía Ollama.',
+          'Tools: shell, editor, búsqueda — lo que definas.',
+          'Skills: capacidades reutilizables como plugins.',
+          'Sesiones y sandboxes: aislamiento intercambiable.',
+          'Filesystems, loops de agente y orquestación.',
+          'Incluso la capa de UI es un plugin.',
+        ],
+      },
+      {
+        heading: 'Qué significa esto en la práctica',
+        paragraphs: [
+          'Añadir una herramienta nueva es añadir un plugin sin tocar el núcleo. Cambiar de modelo es cambiar una pieza, no migrar de herramienta. Y como puedes sustituir cada componente, el harness se adapta a tu flujo en vez de obligarte a adaptarte tú.',
+          'Para un equipo que quiere control de coste y datos, es el argumento más fuerte: puedes desplegarlo en self-hosting y conectar la DeepSeek V4 Flash — la referencia calidad/precio del 2026 — sin lock-in.',
+        ],
+      },
+      {
+        heading: 'Limitaciones honestas',
+        paragraphs: [
+          'Toda arquitectura joven tiene peajes. Cordis y el ecosistema de plugins de DeepSeek Harness están en Developer Preview (v0.1, agosto 2026): la curva de aprendizaje para escribir plugins propios existe, la documentación madura y el ecosistema de plugins de terceros aún es pequeño frente a lo que ofrecen las cajas cerradas.',
+          'Si vienes de Claude Code o Codex, notarás menos pulido. Pero si valoras la libertad estructural, es un trade-off que merece la pena.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: '¿Qué es Cordis?',
+        a: 'El meta-framework sobre el que se construye DeepSeek Harness: solo gestiona la carga, descarga y dependencias de plugins, que colaboran por servicios y eventos.',
+      },
+      {
+        q: '¿Qué significa «everything is a plugin»?',
+        a: 'Que casi cada capacidad del harness (modelo, tools, skills, sesiones, loops, UI) es un plugin intercambiable en vez de estar fijado por el fabricante.',
+      },
+      {
+        q: '¿Es difícil escribir plugins propios?',
+        a: 'Es posible y es su gran ventaja, pero el ecosistema es joven (Developer Preview) y la curva de aprendizaje existe.',
+      },
+      {
+        q: '¿Puedo conectar modelos de otros proveedores?',
+        a: 'Sí. Como todo es un plugin, puedes conectar DeepSeek, OpenAI, Claude o modelos locales vía Ollama.',
+      },
+    ],
+    cta: '¿Quieres un stack de agentes sin lock-in? Construyámoslo contigo.',
+  },
 ];
 
 export const getPostBySlug = (slug: string) => posts.find((p) => p.slug === slug);
