@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { posts } from '@/data/posts';
-import { Clock, MessageCircle, Phone, Coins, Utensils } from 'lucide-react';
+import { posts, getPostLang } from '@/data/posts';
+import { Clock, MessageCircle, Phone, Coins, Utensils, TerminalSquare } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 const iconMap: Record<string, LucideIcon> = {
@@ -10,6 +10,7 @@ const iconMap: Record<string, LucideIcon> = {
   phone: Phone,
   coins: Coins,
   utensils: Utensils,
+  terminal: TerminalSquare,
 };
 
 export const metadata: Metadata = {
@@ -60,7 +61,7 @@ export default function BlogIndex() {
                         {post.category}
                       </span>
                       <span>·</span>
-                      <span>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                      <span>{new Date(post.date).toLocaleDateString(getPostLang(post) === 'es' ? 'es-ES' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                     </div>
                   </div>
 
@@ -74,10 +75,10 @@ export default function BlogIndex() {
                   <div className="mt-6 flex items-center justify-between border-t border-white/5 pt-4 text-xs text-slate-500">
                     <span className="inline-flex items-center gap-1.5">
                       <Clock className="h-3.5 w-3.5" />
-                      {post.readMinutes} min read
+                      {post.readMinutes} {getPostLang(post) === 'es' ? 'min de lectura' : 'min read'}
                     </span>
                     <span className="font-semibold text-indigo-400 transition-colors group-hover:text-indigo-300">
-                      Read article →
+                      {getPostLang(post) === 'es' ? 'Leer artículo →' : 'Read article →'}
                     </span>
                   </div>
                 </a>

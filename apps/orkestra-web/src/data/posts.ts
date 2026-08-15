@@ -5,6 +5,8 @@ export type PostSection = {
   table?: { headers: string[]; rows: string[][] };
 };
 
+export type Lang = 'en' | 'es';
+
 export type Post = {
   slug: string;
   title: string;
@@ -19,6 +21,8 @@ export type Post = {
   sections: PostSection[];
   faq: { q: string; a: string }[];
   cta: string;
+  /** Idioma del post. Por defecto 'en' para no romper posts existentes. */
+  lang?: Lang;
 };
 
 export const posts: Post[] = [
@@ -473,6 +477,136 @@ export const posts: Post[] = [
     ],
     cta: 'Build your restaurant AI stack — book a strategy call',
   },
+  {
+    slug: 'deepseek-harness-guia-completa',
+    title:
+      'DeepSeek Harness: la guía completa del agente open-source que rivaliza con Claude Code',
+    description:
+      'Todo sobre DeepSeek Harness v0.1: qué es, cómo instalar el CLI dsh, la arquitectura "everything is a plugin" sobre Cordis, y cómo se compara con Claude Code, Codex y el resto de agent harnesses.',
+    keywords: [
+      'deepseek harness',
+      'deepseek harness guia',
+      'deepseek harness vs claude code',
+      'deepseek harness cordis',
+      'agente de codigo ia deepseek',
+      'dsh cli',
+      'agent harness open source',
+      'deepseek v4 flash harness',
+    ],
+    date: '2026-08-15',
+    readMinutes: 9,
+    category: 'DeepSeek',
+    icon: 'terminal',
+    accent: 'from-blue-500 to-cyan-500',
+    lang: 'es',
+    excerpt:
+      'El 13 de agosto DeepSeek abrió su primer agente de código: DeepSeek Harness. Todo es un plugin. Esto es lo que trae, cómo se instala y por qué compite de frente con Claude Code y Codex.',
+    sections: [
+      {
+        heading: 'DeepSeek dejó de ser solo un modelo',
+        paragraphs: [
+          'DeepSeek abrió el 13 de agosto de 2026 su primer producto de agentes: DeepSeek Harness v0.1, un runtime de agentes open-source publicado bajo licencia MIT como Developer Preview. Con él, la compañía da un paso más allá de los modelos y empieza a controlar la capa de software que las rodea.',
+          'Durante años DeepSeek fue conocido por un único asset: los modelos. Con este lanzamiento apuesta por lo que llaman "infraestructura digital para agentes autónomos": sistemas capaces de usar una IA para operar software externo, ejecutar código y completar tareas complejas por su cuenta. Es el mismo giro hacia la agentic AI que están dando Anthropic con Claude Code y OpenAI con Codex — pero en open-source.',
+        ],
+        bullets: [
+          'Un paso más allá del modelo: controla la capa de software de los agentes.',
+          'Open-source bajo MIT, no un clon cerrado.',
+          'Arquitectura de plugins donde modelos, tools y UI son intercambiables — sin lock-in de vendor.',
+        ],
+      },
+      {
+        heading: 'Qué es exactamente DeepSeek Harness',
+        paragraphs: [
+          'DeepSeek Harness es un agent runtime — el "armazón" (harness) que envuelve a un modelo y lo convierte en un agente capaz de razonar, usar herramientas y ejecutar tareas de principio a fin. Es el equivalente open-source de Claude Code y Codex, pero con una filosofía radicalmente distinta: "everything is a plugin".',
+          'En un harness tradicional el modelo, las tools y el loop de agente están más o menos fijados por el fabricante. En DeepSeek Harness casi cada capacidad es un plugin: modelos, tools, skills, sesiones, sandboxes, filesystems, loops de agente, orquestación y hasta la capa de UI.',
+        ],
+        bullets: [
+          'Modelos: conecta DeepSeek, OpenAI, Anthropic o locales vía Ollama.',
+          'Tools: shell, editor, búsqueda — lo que definas.',
+          'Skills: capacidades reutilizables como plugins.',
+          'Si puedes cambiar modelo, herramientas y loop como piezas separadas, el harness se adapta a tu flujo en vez de obligarte a adaptarte tú.',
+        ],
+      },
+      {
+        heading: 'La arquitectura: todo sobre Cordis',
+        paragraphs: [
+          'La pieza técnica más interesante es Cordis, el meta-framework sobre el que está construido. Cordis no implementa el agente en sí: solo gestiona la carga, descarga y dependencias de plugins. Los plugins colaboran entre sí mediante dos mecanismos — servicios y eventos — lo que los mantiene desacoplados y fáciles de sustituir.',
+          'Esto tiene dos consecuencias prácticas: añadir una tool nueva es añadir un plugin sin tocar el núcleo, y cada pieza individual puede mejorarse o cambiarse sin romper el resto. Se ejecuta sobre Node.js y el arranque se hace con npx @deepseek-ai/dsh web.',
+        ],
+        bullets: [
+          'Extensible: añadir una tool nueva = añadir un plugin.',
+          'Reemplazable: cada pieza se cambia sin romper el resto.',
+          'Node.js: npx @deepseek-ai/dsh web lanza la Web UI; también funciona como CLI.',
+        ],
+      },
+      {
+        heading: 'Cómo instalarlo en 5 minutos',
+        paragraphs: [
+          'La instalación es directa porque es un paquete de Node. Con Node.js instalado basta con lanzar el comando y listo.',
+          'Es una Developer Preview: también puedes clonar el repo de GitHub e instalar desde fuente. Al ser open-source (MIT), puedes forkearlo, inspeccionarlo y adaptarlo a tus necesidades.',
+        ],
+        bullets: [
+          'npx @deepseek-ai/dsh web — arranca la interfaz Web UI.',
+          'npx @deepseek-ai/dsh — uso como CLI.',
+          'Clonar el repositorio e instalar desde fuente si prefieres.',
+        ],
+      },
+      {
+        heading: 'Comparativa: DeepSeek Harness vs Claude Code vs Codex',
+        table: {
+          headers: ['Criterio', 'DeepSeek Harness', 'Claude Code', 'OpenAI Codex'],
+          rows: [
+            ['Código', 'Open-source (MIT)', 'Cerrado', 'Cerrado'],
+            ['Cambio de modelo', 'Cualquiera (plugin)', 'Claude (fijado)', 'GPT (fijado)'],
+            ['Tools', 'Plugins intercambiables', 'Ecosistema cerrado', 'Ecosistema cerrado'],
+            ['Arquitectura', 'Todo-por-plugin (Cordis)', 'Caja cerrada', 'Caja cerrada'],
+            ['Coste modelo', 'El que conectes', 'Claude API', 'GPT API'],
+            ['Vendor lock-in', 'No', 'Sí', 'Sí'],
+          ],
+        },
+        paragraphs: [
+          'La ventaja estructural del harness de DeepSeek frente a Claude Code y Codex es que no te encierra en un modelo. Puedes conectar el modelo que quieras — incluidas las propias V4 Flash o V4 Pro — y cambiar de proveedor sin migrar de herramienta. Para equipos que ya trabajan con varios modelos es un diferenciador real.',
+        ],
+      },
+      {
+        heading: 'El ecosistema: no es el único harness',
+        paragraphs: [
+          'DeepSeek Harness entra en un ecosistema ya poblado. The Register sitúa junto a Claude Code y Codex a otros harnesses: Aider, Cline, Goose, OpenCode, OpenHands y Pi, entre otros. Cada uno tiene su enfoque — algunos más centrados en terminal, otros en IDE, otros en autonomía multi-agente.',
+          'Lo que distingue a DeepSeek Harness es la arquitectura de plugins todo-intercambiable y la apuesta de una compañía de primer nivel por liberarlo en MIT. No es un proyecto de comunidad que espera madurar: es un movimiento estratégico de DeepSeek para competir en la capa de agentes, con un equipo dedicado ("DeepSeek Harness Team") que ya está contratando.',
+        ],
+      },
+      {
+        heading: 'Por qué esto te importa',
+        paragraphs: [
+          'Si construyes agentes o automatizaciones, DeepSeek Harness te da una alternativa abierta a las cajas cerradas de Anthropic y OpenAI. Puedes probar el mismo loop de agente con distintos modelos y elegir el mejor por calidad, precio y latencia; extenderlo con tus propias tools sin pelear contra una API privada; y desplegarlo en self-hosting manteniendo el control de tus datos y de tu coste.',
+          'Y si usas los modelos DeepSeek — especialmente la V4 Flash por su relación calidad-precio — el harness es la forma natural de ejecutarlos como agente de principio a fin.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: '¿Hay que pagar por DeepSeek Harness?',
+        a: 'No. Es open-source bajo licencia MIT, publicado en GitHub como Developer Preview. Solo pagas el uso del modelo que conectes (por ejemplo, la API de DeepSeek).',
+      },
+      {
+        q: '¿Sirve solo con modelos DeepSeek?',
+        a: 'No. Como todo es un plugin, puedes conectar modelos de distintos proveedores (DeepSeek, OpenAI, Anthropic, locales vía Ollama, etc.). Esa es precisamente su ventaja.',
+      },
+      {
+        q: '¿Es estable para producción?',
+        a: 'Está en Developer Preview (v0.1, lanzado el 13/8/2026). Es prometedor y muy flexible, pero aún es joven: prodúcelo con cautela y evalúa según tu caso.',
+      },
+      {
+        q: '¿Qué diferencia hay entre DeepSeek Harness y Claude Code?',
+        a: 'La clave es la apertura: DeepSeek Harness es MIT con arquitectura de plugins intercambiables y modelo libre, mientras Claude Code es un producto cerrado atado al ecosistema de Anthropic.',
+      },
+      {
+        q: '¿Cómo lo instalo?',
+        a: 'Con Node.js: npx @deepseek-ai/dsh web para la interfaz Web UI, o npx @deepseek-ai/dsh como CLI. También puedes clonar el repo e instalar desde fuente.',
+      },
+    ],
+    cta: '¿Construyes agentes con IA? Hablemos de tu stack.',
+  },
 ];
 
 export const getPostBySlug = (slug: string) => posts.find((p) => p.slug === slug);
@@ -482,3 +616,43 @@ export const relatedPosts = (current: Post, count = 2) =>
     .filter((p) => p.slug !== current.slug)
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, count);
+
+/** Mapa de cadenas localizadas para el render del blog. */
+export const blogLocale: Record<Lang, {
+  readIn: string;
+  byTeam: string;
+  relatedProducts: string;
+  keepReading: string;
+  homeBreadcrumb: string;
+  faqTitle: string;
+  ctaSubtitle: string;
+  ctaButtonLabel: string;
+  ctaButtonHref: string;
+}> = {
+  en: {
+    readIn: 'min read',
+    byTeam: 'By the HosT.ia team',
+    relatedProducts: 'Related products',
+    keepReading: 'Keep reading',
+    homeBreadcrumb: 'Home',
+    faqTitle: 'Frequently asked questions',
+    ctaSubtitle:
+      'Production-ready agents in under 30 days, with SLA-backed uptime and a live monitoring dashboard. Book a free strategy call.',
+    ctaButtonLabel: 'Book a strategy call',
+    ctaButtonHref: '#contact',
+  },
+  es: {
+    readIn: 'min de lectura',
+    byTeam: 'Por el equipo HosT.ia',
+    relatedProducts: 'Productos relacionados',
+    keepReading: 'Sigue leyendo',
+    homeBreadcrumb: 'Inicio',
+    faqTitle: 'Preguntas frecuentes',
+    ctaSubtitle:
+      'Agentes listos para producción en menos de 30 días, con uptime garantizado por SLA y un dashboard de monitorización en vivo. Agenda una llamada estratégica gratuita.',
+    ctaButtonLabel: 'Agenda una llamada',
+    ctaButtonHref: '#contact',
+  },
+};
+
+export const getPostLang = (post: Post): Lang => post.lang ?? 'en';

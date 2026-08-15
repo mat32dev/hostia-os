@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { ArrowUpRight, Check } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { posts, getPostBySlug, relatedPosts } from '@/data/posts';
+import { posts, getPostBySlug, relatedPosts, blogLocale, getPostLang } from '@/data/posts';
 import { brand, productLinks } from '@/data/content';
 
 export const dynamicParams = false;
@@ -17,6 +17,7 @@ type Props = { params: { slug: string } };
 export function generateMetadata({ params }: Props): Metadata {
   const post = getPostBySlug(params.slug);
   if (!post) return {};
+  const lang = getPostLang(post);
   return {
     title: post.title,
     description: post.description,
@@ -24,7 +25,7 @@ export function generateMetadata({ params }: Props): Metadata {
     alternates: { canonical: `https://hostia.solutions/blog/${post.slug}/` },
     openGraph: {
       type: 'article',
-      locale: 'en_US',
+      locale: lang === 'es' ? 'es_ES' : 'en_US',
       siteName: 'HosT.ia',
       title: post.title,
       description: post.description,
@@ -44,6 +45,9 @@ export default function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   const related = relatedPosts(post);
+  const lang = getPostLang(post);
+  const locale = blogLocale[lang];
+  const inLanguage = lang === 'es' ? 'es' : 'en';
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -54,7 +58,7 @@ export default function BlogPostPage({ params }: Props) {
     keywords: post.keywords.join(', '),
     datePublished: post.date,
     dateModified: post.date,
-    inLanguage: 'en',
+    inLanguage,
     author: { '@type': 'Organization', name: 'HosT.ia', url: 'https://hostia.solutions' },
     publisher: {
       '@type': 'Organization',
@@ -80,7 +84,7 @@ export default function BlogPostPage({ params }: Props) {
         <article className="container max-w-3xl">
           <nav className="mb-6 text-xs text-slate-500">
             <a href="/" className="hover:text-slate-300">
-              Home
+              {locale.homeBreadcrumb}
             </a>
             <span className="mx-2">/</span>
             <a href="/blog/" className="hover:text-slate-300">
@@ -97,11 +101,11 @@ export default function BlogPostPage({ params }: Props) {
           <p className="mt-5 text-lg leading-relaxed text-slate-400">{post.description}</p>
 
           <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 border-y border-white/5 py-4 text-xs text-slate-500">
-            <span>{new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+            <span>{new Date(post.date).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
             <span>·</span>
-            <span>{post.readMinutes} min read</span>
+            <span>{post.readMinutes} {locale.readIn}</span>
             <span>·</span>
-            <span>By the HosT.ia team</span>
+            <span>{locale.byTeam}</span>
           </div>
 
           <div className="mt-10 space-y-12">
@@ -160,7 +164,7 @@ export default function BlogPostPage({ params }: Props) {
             {post.faq.length > 0 && (
               <section>
                 <h2 className="font-display text-2xl font-bold tracking-tight text-white">
-                  Frequently asked questions
+                  {locale.faqTitle}
                 </h2>
                 <div className="mt-5 space-y-4">
                   {post.faq.map((f) => (
@@ -177,17 +181,16 @@ export default function BlogPostPage({ params }: Props) {
           <div className="mt-12 rounded-2xl border border-indigo-500/30 bg-gradient-to-br from-indigo-500/10 to-violet-500/10 p-8 text-center">
             <h2 className="font-display text-2xl font-bold text-white">{post.cta}</h2>
             <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-400">
-              Production-ready agents in under 30 days, with SLA-backed uptime and a live
-              monitoring dashboard. Book a free strategy call.
+              {locale.ctaSubtitle}
             </p>
-            <a href="#contact" className="btn-primary mt-6">
-              Book a strategy call
+            <a href={locale.ctaButtonHref} className="btn-primary mt-6">
+              {locale.ctaButtonLabel}
             </a>
           </div>
 
           {related.length > 0 && (
             <div className="mt-16">
-              <h2 className="font-display text-xl font-bold text-white">Keep reading</h2>
+              <h2 className="font-display text-xl font-bold text-white">{locale.keepReading}</h2>
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 {related.map((p) => (
                   <a
@@ -209,7 +212,7 @@ export default function BlogPostPage({ params }: Props) {
 
           <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-white/5 pt-8 sm:flex-row sm:items-center">
             <span className="text-xs uppercase tracking-wider text-slate-500">
-              Related products
+              {locale.relatedProducts}
             </span>
             <div className="flex flex-wrap gap-3">
               {productLinks.map((link) => (
