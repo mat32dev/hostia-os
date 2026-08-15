@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { posts, getPostLang } from '@/data/posts';
-import { Clock, MessageCircle, Phone, Coins, Utensils, TerminalSquare } from 'lucide-react';
+import { Clock, MessageCircle, Phone, Coins, Utensils, TerminalSquare, Download, Zap, GitBranch } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 const iconMap: Record<string, LucideIcon> = {
@@ -11,6 +11,9 @@ const iconMap: Record<string, LucideIcon> = {
   coins: Coins,
   utensils: Utensils,
   terminal: TerminalSquare,
+  download: Download,
+  zap: Zap,
+  'git-branch': GitBranch,
 };
 
 export const metadata: Metadata = {

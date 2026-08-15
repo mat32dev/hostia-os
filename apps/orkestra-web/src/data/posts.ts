@@ -607,6 +607,338 @@ export const posts: Post[] = [
     ],
     cta: '¿Construyes agentes con IA? Hablemos de tu stack.',
   },
+  {
+    slug: 'instalar-deepseek-harness',
+    title: 'Cómo instalar DeepSeek Harness en 5 minutos (npx dsh)',
+    description:
+      'Instala DeepSeek Harness v0.1 con npx dsh en menos de 5 minutos. Guía paso a paso del CLI y la Web UI, requisitos y cómo lanzar tu primer agente. Tutorial directo para developers.',
+    keywords: [
+      'instalar deepseek harness',
+      'deepseek harness npx dsh',
+      'como instalar deepseek harness',
+      'deepseek hardware install',
+      'dsh cli deepseek',
+      'deepseek harness web ui',
+    ],
+    date: '2026-08-15',
+    readMinutes: 4,
+    category: 'DeepSeek',
+    icon: 'download',
+    accent: 'from-blue-500 to-cyan-500',
+    lang: 'es',
+    excerpt:
+      'DeepSeek Harness se instala en 5 minutos: npx @deepseek-ai/dsh web lanza la Web UI y npx @deepseek-ai/dsh funciona como CLI. Aquí está el paso a paso exacto, sin rodeos.',
+    sections: [
+      {
+        heading: 'Requisitos previos',
+        paragraphs: [
+          'Lo único que necesitas es Node.js instalado en tu máquina. DeepSeek Harness v0.1 (Developer Preview, licencia MIT, lanzado el 13/8/2026) corre sobre Node.js, así que con un Node moderno (v18+) tienes suficiente. No requiere GPU: los modelos se conectan por API (DeepSeek, OpenAI, Anthropic) o vía Ollama para locales.',
+        ],
+        bullets: [
+          'Node.js v18 o superior (recomendado Node LTS).',
+          'Sin GPU requerida para el harness en sí — el procesado lo hace el modelo que conectes.',
+          'Una API key del proveedor de modelo (DeepSeek, OpenAI, Anthropic) o un modelo local vía Ollama.',
+        ],
+      },
+      {
+        heading: 'Paso 1: lanza la Web UI con npx',
+        paragraphs: [
+          'El arranque más rápido es la interfaz web. Abre tu terminal y ejecuta:',
+          'npx @deepseek-ai/dsh web',
+        ],
+        bullets: [
+          'npx descarga el paquete y lanza la Web UI en tu navegador.',
+          'Es una Developer Preview: la primera ejecución puede tardar un poco en descargar el paquete.',
+          'Desde la interfaz eliges el modelo, configuras tus tools y lanzas la primera sesión de agente.',
+        ],
+      },
+      {
+        heading: 'Paso 2: o úsalo como CLI',
+        paragraphs: [
+          'Si prefieres línea de comandos, el mismo paquete funciona como CLI:',
+          'npx @deepseek-ai/dsh',
+        ],
+        bullets: [
+          'Ideal para automatizar, scripts y entornos headless (CI/CD, cron, self-hosting).',
+          'El harness es multiplataforma porque es Node.js: funciona en macOS, Linux y Windows.',
+          'Toda la configuración de modelos, tools y skills se gestiona como plugins — ver el deep dive de Cordis.',
+        ],
+      },
+      {
+        heading: 'Paso 3: conecta un modelo y arranca',
+        paragraphs: [
+          'DeepSeek Harness sigue la filosofía "everything is a plugin" (sobre el meta-framework Cordis): el modelo, las tools y el loop de agente son piezas intercambiables que conectas a tu gusto. No te encierra en DeepSeek — puedes usar OpenAI, Anthropic o un modelo local vía Ollama.',
+          'En la Web UI eliges el provider, pegas tu API key, y con un botón lanzas la primera sesión. El harness se encarga del loop: razonar, usar herramientas, ejecutar código y completar la tarea de principio a fin. Si quieres el detalle de arquitectura, tienes la guía completa del agente open-source que rivaliza con Claude Code.',
+        ],
+        bullets: [
+          'Cambiar de modelo = cambiar un plugin, sin migrar de herramienta.',
+          'Self-hosting total: tus datos y tu coste quedan bajo tu control.',
+          'Si usas DeepSeek V4 Flash, el harness es la forma natural de ejecutarlo como agente end-to-end.',
+        ],
+      },
+      {
+        heading: 'Solución de problemas rápida',
+        paragraphs: [
+          'Si algo falla en el arranque, lo más común es un Node desactualizado o una API key mal configurada. Comprueba la versión con node -v (necesitas v18+) y que la key esté activa en el panel del provider.',
+        ],
+        bullets: [
+          'node -v debe devolver v18 o superior; si no, actualiza Node.',
+          'Al ser Developer Preview, revisa el repo de GitHub por issues conocidos de tu sistema operativo.',
+          'Prueba primero un modelo rápido (como V4 Flash) antes de pasar a modelos más pesados.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: '¿Necesito una GPU para instalar DeepSeek Harness?',
+        a: 'No. El harness es solo el runtime (Node.js); el procesado lo hace el modelo que conectes por API o vía Ollama local. Para modelos grandes locales sí necesitarías hardware, pero con la API no.',
+      },
+      {
+        q: '¿Funciona en Windows?',
+        a: 'Sí. Al estar construido sobre Node.js, DeepSeek Harness funciona en macOS, Linux y Windows.',
+      },
+      {
+        q: '¿Hay que pagar por DeepSeek Harness?',
+        a: 'No, es open-source bajo licencia MIT. Solo pagas el uso del modelo que conectes (por ejemplo, la API de DeepSeek).',
+      },
+      {
+        q: '¿Con qué comando arranco la Web UI?',
+        a: 'npx @deepseek-ai/dsh web. Para uso CLI: npx @deepseek-ai/dsh.',
+      },
+      {
+        q: '¿Es estable para producción?',
+        a: 'Está en Developer Preview (v0.1). Es prometedor y flexible, pero joven: prodúcelo con cautela y evalúa según tu caso.',
+      },
+    ],
+    cta: '¿No quieres montar tu propio harness? Déjanos construirlo por ti en producción.',
+  },
+  {
+    slug: 'deepseek-v4-flash-mejor-calidad-precio',
+    title: 'DeepSeek V4 Flash: el mejor modelo calidad-precio de 2026 (benchmarks reales)',
+    description:
+      'DeepSeek V4 Flash casi duplica en rendimiento a modelos que cuestan hasta 14x más. Con los benchmarks reales (Terminal Bench 2.1: 82.7 vs 72.1) y los precios desde el 16/8/2026, esta es tu tesis calidad/precio del 2026.',
+    keywords: [
+      'deepseek v4 flash',
+      'deepseek v4 flash precio',
+      'deepseek v4 flash benchmarks',
+      'deepseek v4 flash vs v4 pro',
+      'mejor modelo calidad precio 2026',
+      'deepseek pricing 2026',
+      'v4 flash terminal bench',
+    ],
+    date: '2026-08-16',
+    readMinutes: 8,
+    category: 'DeepSeek',
+    icon: 'zap',
+    accent: 'from-amber-500 to-orange-500',
+    lang: 'es',
+    excerpt:
+      'El benchmark que nadie esperaba: la V4 Flash (82.7 en Terminal Bench 2.1) supera a la V4 Pro (72.1), y cuesta hasta 14x menos. Esta es la tesis calidad/precio que sostiene el boom de DeepSeek.',
+    sections: [
+      {
+        heading: 'El benchmark que nadie esperaba',
+        paragraphs: [
+          'DeepSeek publicó el 16/8/2026 la nueva estructura de precios, pero el dato que más llama la atención no es el coste: es el rendimiento. La V4 Flash (versión 0731) supera a la V4 Pro en 9 de los benchmarks publicados, incluido el Terminal Bench 2.1 donde la Flash marca un 82.7 frente al 72.1 de la Pro.',
+          'Que un modelo más barato supere a su hermano mayor no es casualidad: refleja un diseño optimizado para la inferencia rápida sin sacrificar razonamiento. Para la mayoría de tareas de agente y productividad, la Flash es objetivamente mejor elección que la Pro.',
+        ],
+        bullets: [
+          'Terminal Bench 2.1: Flash 82.7 vs Pro 72.1 — un +14% a favor de la barata.',
+          'DeepSWE también puntúa a favor de la Flash.',
+          'Supera a la Pro en 9 benchmarks publicados, no solo en este.',
+        ],
+      },
+      {
+        heading: 'Precios desde el 16/8: cuánto cuesta de verdad',
+        paragraphs: [
+          'DeepSeek actualizó precios el 16/8/2026. La V4 Flash cuesta $0.22 por millón de tokens de entrada (cache miss), $1.32 por millón de output en horas pico y $0.66 en horas valle. La V4 Pro, en cambio, cuesta $3.96 por millón de output en pico y $1.98 en valle — hasta 14x más cara que la Flash.',
+          'La subida global fue notable: hasta un 1100% frente a los precios previos (que rondaban $0.14/M de entrada y $0.28/M de salida). Aun así, en relación calidad-precio la Flash sigue siendo la referencia del mercado para cargas de razonamiento.',
+        ],
+        table: {
+          headers: ['Métrica', 'V4 Flash', 'V4 Pro'],
+          rows: [
+            ['Input (cache miss)', '$0.22 / M tokens', '—'],
+            ['Output pico', '$1.32 / M tokens', '$3.96 / M tokens'],
+            ['Output valle', '$0.66 / M tokens', '$1.98 / M tokens'],
+            ['Razón de coste', '1x', 'Hasta 14x más cara'],
+            ['Terminal Bench 2.1', '82.7', '72.1'],
+          ],
+        },
+      },
+      {
+        heading: 'Por qué la Flash es tu mejor apuesta calidad-precio',
+        paragraphs: [
+          'La gran ventaja no es solo el precio bruto, sino lo que obtienes por él. Para el 90% de las tareas reales — agentes, automatizaciones, chatbots, resúmenes, razonamiento multi-paso — la Flash ofrece rendimiento de gama alta a una fracción del coste.',
+          'Además, el thinking (chain-of-thought) viene habilitado por defecto en la API tanto en V4 Pro como en V4 Flash, lo que significa que incluso la opción económica razona de forma transparente antes de responder.',
+        ],
+        bullets: [
+          'Usa la Flash para el 90% de tus tareas; reserva la Pro solo para casos edge que lo justifiquen.',
+          'El reasoning-by-default hace a la Flash competente en tareas de agente complejas, no solo en preguntas simples.',
+          'Con el harness open-source de DeepSeek puedes usar la Flash como motor de agente end-to-end a coste mínimo.',
+        ],
+      },
+      {
+        heading: 'La tesis que sostiene el ecosistema DeepSeek',
+        paragraphs: [
+          'Este benchmark es el argumento central de por qué DeepSeek está ganando tracción en 2026: un modelo open-weight, barato y de alto rendimiento rompe el dogma de que "lo caro es mejor". Para developers, startups y self-hosters, la Flash elimina la excusa de no automatizar por coste.',
+          'Si además corres el harness de DeepSeek (licencia MIT) con la Flash, tienes un stack de agentes completo y de bajo coste, sin lock-in de vendor. Es el posicionamiento en el que se apoya todo el ecosistema HosT.ia.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: '¿La V4 Flash es mejor que la V4 Pro?',
+        a: 'En los benchmarks publicados, la Flash 0731 supera a la Pro en 9 de ellos, incluido Terminal Bench 2.1 (82.7 vs 72.1). Para la mayoría de tareas, es la mejor elección: casi igual de capaz y mucho más barata.',
+      },
+      {
+        q: '¿Cuánto cuesta DeepSeek V4 Flash?',
+        a: 'Desde el 16/8/2026: $0.22/M de entrada (cache miss), $1.32/M de output en pico y $0.66/M en valle.',
+      },
+      {
+        q: '¿Por qué subieron tanto los precios?',
+        a: 'La subida fue de hasta un 1100% frente a los precios previos (eran $0.14/M in y $0.28/M out). Aun así, la Flash sigue siendo la referencia calidad-precio del mercado.',
+      },
+      {
+        q: '¿La V4 Flash razona?',
+        a: 'Sí. El thinking (chain-of-thought) está habilitado por defecto en la API, tanto en V4 Pro como en V4 Flash.',
+      },
+      {
+        q: '¿Debo usar siempre la Flash?',
+        a: 'Para la mayoría de tareas de agente y productividad, sí. Reserva la Pro para casos muy específicos que justifiquen su coste hasta 14x mayor.',
+      },
+    ],
+    cta: '¿Quieres agentes en producción al menor coste posible? Hablemos.',
+  },
+  {
+    slug: 'agentes-de-codigo-ia-2026',
+    title: 'Los mejores agentes de código IA en 2026: comparativa completa',
+    description:
+      'Comparativa 2026 de los agentes de código IA: Claude Code, OpenAI Codex, DeepSeek Harness, Aider, Cline, Goose, OpenCode, OpenHands y Pi. Cuál elegir según tu modelo, tu presupuesto y tu flujo.',
+    keywords: [
+      'agentes de codigo ia 2026',
+      'agentes de codigo ia comparativa',
+      'claude code vs codex vs deepseek harness',
+      'mejores agentes de codigo ia',
+      'ai coding agents 2026',
+      'aider cline goose opencode openhands pi',
+      'agente de codigo open source',
+    ],
+    date: '2026-08-16',
+    readMinutes: 11,
+    category: 'Comparativa',
+    icon: 'git-branch',
+    accent: 'from-violet-500 to-fuchsia-500',
+    lang: 'es',
+    excerpt:
+      'Claude Code, Codex, DeepSeek Harness, Aider, Cline, Goose, OpenCode, OpenHands y Pi: el mapa completo de los agentes de código IA en 2026 y cómo elegir el tuyo sin equivocarte.',
+    sections: [
+      {
+        heading: 'El ecosistema de agentes de código en 2026',
+        paragraphs: [
+          'Los agentes de código IA dejaron de ser una novedad y se convirtieron en el estándar de trabajo de muchos developers. En 2026 el mercado está poblado: junto a los productos cerrados de las grandes (Claude Code y OpenAI Codex) conviven decenas de harnesses open-source y herramientas de terminal.',
+          'The Register sitúa a la cabeza de la conversación a Claude Code y Codex, y junto a ellos a una familia de alternativas: Aider, Cline, Goose, OpenCode, OpenHands y Pi, más el recién llegado DeepSeek Harness. Cada uno tiene una filosofía distinta: algunos viven en el terminal, otros en el IDE, otros apuestan por la autonomía multi-agente.',
+        ],
+        bullets: [
+          'Dos bloques: productos cerrados (Claude Code, Codex) vs harnesses abiertos.',
+          'Terminal-first (Aider, Goose, OpenCode), IDE-first (Cline) y multi-agente (OpenHands).',
+          'DeepSeek Harness irrumpió en agosto de 2026 con arquitectura todo-por-plugin y licencia MIT.',
+        ],
+      },
+      {
+        heading: 'Comparativa rápida: las 9 herramientas',
+        paragraphs: [
+          'Para decidir, no basta con mirar el nombre: hay que mirar el modelo que usas, lo cerrado o abierto que es el flujo, y el coste. Esta tabla resume lo esencial.',
+        ],
+        table: {
+          headers: ['Herramienta', 'Enfoque', 'Código', 'Modelo', 'Coste'],
+          rows: [
+            ['Claude Code', 'Terminal/agente', 'Cerrado', 'Claude (fijado)', 'Claude API'],
+            ['OpenAI Codex', 'Terminal/agente', 'Cerrado', 'GPT (fijado)', 'GPT API'],
+            ['DeepSeek Harness', 'Agente plugin-first', 'MIT', 'Cualquiera', 'El que conectes'],
+            ['Aider', 'Terminal pair', 'Open', 'Varios', 'El que conectes'],
+            ['Cline', 'IDE (VS Code)', 'Open', 'Varios', 'El que conectes'],
+            ['Goose', 'Terminal/agente', 'Open', 'Varios', 'El que conectes'],
+            ['OpenCode', 'Terminal/TUI', 'Open', 'Varios', 'El que conectes'],
+            ['OpenHands', 'Multi-agente', 'Open', 'Varios', 'El que conectes'],
+            ['Pi', 'Terminal/agente', 'Open', 'Varios', 'El que conectes'],
+          ],
+        },
+      },
+      {
+        heading: 'Los cerrados: Claude Code y Codex',
+        paragraphs: [
+          'Son los más pulidos y con mejor integración con sus ecosistemas, pero te encierran en su modelo y su pricing. Si trabajas a fondo con Claude o GPT y valoras una experiencia pulida, son opciones sólidas. La contra: no puedes cambiar de modelo sin cambiar de herramienta, y el coste escala con el uso intensivo.',
+        ],
+        bullets: [
+          'Claude Code: la referencia de UX para quien ya vive en el ecosistema Anthropic.',
+          'Codex: el agente nativo de OpenAI, alineado con GPT y el tooling de OpenAI.',
+          'Ambos: vendor lock-in y pricing atado a su API.',
+        ],
+      },
+      {
+        heading: 'Los abiertos: la familia open-source',
+        paragraphs: [
+          'Aider, Cline, Goose, OpenCode, OpenHands y Pi comparten una ventaja: no te atan a un modelo. Puedes conectar distintos LLMs (incluidos locales vía Ollama) y elegir por calidad, precio y latencia. La diferencia entre ellos está en la experiencia: Aider brilla en pair-programming por terminal, Cline en el IDE de VS Code, OpenCode en una TUI cuidada, OpenHands en la autonomía multi-agente.',
+          'Si tu prioridad es el control de coste y datos — típico de self-hosters y startups — esta familia es la apuesta natural. El coste depende del modelo que conectes, y con la DeepSeek V4 Flash el resultado calidad/precio es difícil de igualar.',
+        ],
+        bullets: [
+          'Aider: pair programming por terminal, con git nativo.',
+          'Cline: agente dentro de VS Code.',
+          'Goose: agente de terminal de código abierto de Block.',
+          'OpenCode: TUI terminal elegante y moderna.',
+          'OpenHands: variante multi-agente para tareas autónomas.',
+          'Pi: terminal, minimalista y ágil.',
+        ],
+      },
+      {
+        heading: 'El disruptor: DeepSeek Harness',
+        paragraphs: [
+          'DeepSeek Harness (v0.1, agosto 2026) entra con una apuesta distinta: todo es un plugin, sobre el meta-framework Cordis. Modelos, tools, skills, sesiones, sandboxes, filesystems, loops, orquestación y hasta la UI son piezas intercambiables. Es la opción que más se acerca a un harness "agnóstico de modelo" con respaldo de una compañía de primer nivel, y además es MIT.',
+          'Es la alternativa real al lock-in de Claude Code y Codex: puedes conectar la DeepSeek V4 Flash, OpenAI, Claude o un local, y cambiar de proveedor sin migrar de herramienta. Es joven (Developer Preview), pero marca la dirección del ecosistema. Ver el detalle en la guía completa de DeepSeek Harness.',
+        ],
+        bullets: [
+          'Licencia MIT, open-source, Developer Preview.',
+          'Arquitectura todo-por-plugin sobre Cordis.',
+          'Sin vendor lock-in: conecta el modelo que quieras.',
+        ],
+      },
+      {
+        heading: 'Cómo elegir el tuyo en 2026',
+        paragraphs: [
+          'No hay un ganador absoluto: hay un ganador para tu caso. La regla práctica es esta: si quieres la mejor integración con un ecosistema cerrado, Claude Code o Codex; si quieres control de coste, datos y portabilidad de modelo, la familia open-source (Aider, Cline, OpenCode) o DeepSeek Harness.',
+          'Si tu prioridad es el coste, elige un harness abierto con la DeepSeek V4 Flash: obtienes rendimiento de gama alta (82.7 en Terminal Bench 2.1) a una fracción del precio de los modelos premium.',
+        ],
+        bullets: [
+          'UX pulida + ecosistema → Claude Code o Codex.',
+          'Control de coste y datos → open-source (Aider, Cline, OpenCode).',
+          'Agnóstico de modelo + open → DeepSeek Harness.',
+          'Rendimiento barato → V4 Flash con cualquier harness abierto.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: '¿Cuál es el mejor agente de código IA en 2026?',
+        a: 'Depende de tu caso: Claude Code y Codex ganan en integración con su ecosistema; la familia open-source (Aider, Cline, OpenCode) gana en control de coste y datos; DeepSeek Harness gana en agnosticismo de modelo y apertura.',
+      },
+      {
+        q: '¿Qué agente de código es gratis?',
+        a: 'La familia open-source (Aider, Cline, Goose, OpenCode, OpenHands, Pi) y DeepSeek Harness son de código abierto. Solo pagas el modelo que conectes.',
+      },
+      {
+        q: '¿DeepSeek Harness es mejor que Claude Code?',
+        a: 'No es mejor ni peor: es distinto. Es MIT, con plugins intercambiables y modelo libre; Claude Code es cerrado. Si valoras no tener lock-in, Harness gana. Si quieres la UX pulida de Anthropic, Claude Code.',
+      },
+      {
+        q: '¿Qué modelo usar con un harness open-source?',
+        a: 'La DeepSeek V4 Flash es la referencia calidad/precio: 82.7 en Terminal Bench 2.1 a una fracción del coste de los modelos premium.',
+      },
+      {
+        q: '¿Puedo usar modelos locales?',
+        a: 'Sí, la mayoría de harnesses open-source se conectan a Ollama para modelos locales, manteniendo tus datos y coste bajo control.',
+      },
+    ],
+    cta: '¿Montamos tu stack de agentes en producción? Hablemos de tu caso.',
+  },
 ];
 
 export const getPostBySlug = (slug: string) => posts.find((p) => p.slug === slug);
