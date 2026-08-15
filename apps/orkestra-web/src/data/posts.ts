@@ -716,7 +716,7 @@ export const posts: Post[] = [
     slug: 'deepseek-v4-flash-mejor-calidad-precio',
     title: 'DeepSeek V4 Flash: el mejor modelo calidad-precio de 2026 (benchmarks reales)',
     description:
-      'DeepSeek V4 Flash casi duplica en rendimiento a modelos que cuestan hasta 14x más. Con los benchmarks reales (Terminal Bench 2.1: 82.7 vs 72.1) y los precios desde el 16/8/2026, esta es tu tesis calidad/precio del 2026.',
+      'DeepSeek V4 Flash rinde a la altura de modelos 3x más caros: en GPQA Diamond (90%) supera a la V4 Pro (87.7%) por una fracción del coste. Con los benchmarks y precios reales de OpenRouter, esta es tu tesis calidad/precio del 2026.',
     keywords: [
       'deepseek v4 flash',
       'deepseek v4 flash precio',
@@ -724,7 +724,7 @@ export const posts: Post[] = [
       'deepseek v4 flash vs v4 pro',
       'mejor modelo calidad precio 2026',
       'deepseek pricing 2026',
-      'v4 flash terminal bench',
+      'v4 flash gpqa',
     ],
     date: '2026-08-16',
     readMinutes: 8,
@@ -733,34 +733,34 @@ export const posts: Post[] = [
     accent: 'from-amber-500 to-orange-500',
     lang: 'es',
     excerpt:
-      'El benchmark que nadie esperaba: la V4 Flash (82.7 en Terminal Bench 2.1) supera a la V4 Pro (72.1), y cuesta hasta 14x menos. Esta es la tesis calidad/precio que sostiene el boom de DeepSeek.',
+      'El dato que sostiene la tesis calidad/precio: la V4 Flash marca un 90% en GPQA Diamond (por encima del 87.7% de la V4 Pro) costando ~3x menos. Benchmarks y precios reales de OpenRouter.',
     sections: [
       {
-        heading: 'El benchmark que nadie esperaba',
+        heading: 'El benchmark que sostiene la tesis',
         paragraphs: [
-          'DeepSeek publicó el 16/8/2026 la nueva estructura de precios, pero el dato que más llama la atención no es el coste: es el rendimiento. La V4 Flash (versión 0731) supera a la V4 Pro en 9 de los benchmarks publicados, incluido el Terminal Bench 2.1 donde la Flash marca un 82.7 frente al 72.1 de la Pro.',
-          'Que un modelo más barato supere a su hermano mayor no es casualidad: refleja un diseño optimizado para la inferencia rápida sin sacrificar razonamiento. Para la mayoría de tareas de agente y productividad, la Flash es objetivamente mejor elección que la Pro.',
+          'La tesis calidad/precio de la V4 Flash (versión 0731) se apoya en los benchmarks reales que publica OpenRouter para este modelo. En GPQA Diamond, el benchmark de razonamiento científico de nivel doctoral, la Flash marca un 90.0% en el provider de DeepSeek, por encima del 87.7% (routing ponderado) de la V4 Pro 0813.',
+          'Que un modelo más barato iguale o supere a su hermano mayor en razonamiento no es casualidad: refleja un diseño optimizado para la inferencia rápida sin sacrificar la capacidad de razonar. Para la mayoría de tareas de productividad y automatización, la Flash es la mejor elección coste/beneficio.',
         ],
         bullets: [
-          'Terminal Bench 2.1: Flash 82.7 vs Pro 72.1 — un +14% a favor de la barata.',
-          'DeepSWE también puntúa a favor de la Flash.',
-          'Supera a la Pro en 9 benchmarks publicados, no solo en este.',
+          'GPQA Diamond: Flash 90.0% vs Pro 87.7% — la barata supera a la cara en razonamiento científico.',
+          'Tau-Bench: la Pro marca un 79.3% frente al 77.8% de la Flash (en agentes la Pro gana ligeramente).',
+          'Sea cual sea el benchmark, la Flash iguala o roza a la Pro a una fracción del coste.',
         ],
       },
       {
-        heading: 'Precios desde el 16/8: cuánto cuesta de verdad',
+        heading: 'Precios reales en OpenRouter: cuánto cuesta de verdad',
         paragraphs: [
-          'DeepSeek actualizó precios el 16/8/2026. La V4 Flash cuesta $0.22 por millón de tokens de entrada (cache miss), $1.32 por millón de output en horas pico y $0.66 en horas valle. La V4 Pro, en cambio, cuesta $3.96 por millón de output en pico y $1.98 en valle — hasta 14x más cara que la Flash.',
-          'La subida global fue notable: hasta un 1100% frente a los precios previos (que rondaban $0.14/M de entrada y $0.28/M de salida). Aun así, en relación calidad-precio la Flash sigue siendo la referencia del mercado para cargas de razonamiento.',
+          'Los precios oficiales en OpenRouter (USD por millón de tokens) son la referencia real de coste. La V4 Flash 0731 cuesta $0.14 por millón de tokens de entrada y $0.28 por millón de salida. La V4 Pro 0813 cuesta $0.435 por millón de entrada y $0.87 por millón de salida.',
+          'En la práctica, la Flash es unas 3x más barata que la Pro. Esa diferencia, multiplicada por un volumen alto de tokens en cargas de agentes y automatizaciones, se traduce en un ahorro enorme sin renunciar a rendimiento de gama alta.',
         ],
         table: {
-          headers: ['Métrica', 'V4 Flash', 'V4 Pro'],
+          headers: ['Métrica', 'V4 Flash 0731', 'V4 Pro 0813'],
           rows: [
-            ['Input (cache miss)', '$0.22 / M tokens', '—'],
-            ['Output pico', '$1.32 / M tokens', '$3.96 / M tokens'],
-            ['Output valle', '$0.66 / M tokens', '$1.98 / M tokens'],
-            ['Razón de coste', '1x', 'Hasta 14x más cara'],
-            ['Terminal Bench 2.1', '82.7', '72.1'],
+            ['Input (/M tokens)', '$0.14', '$0.435'],
+            ['Output (/M tokens)', '$0.28', '$0.87'],
+            ['Razón de coste', '1x', '~3.1x más cara'],
+            ['GPQA Diamond', '90.0%', '87.7%'],
+            ['Tau-Bench', '77.8%', '79.3%'],
           ],
         },
       },
@@ -779,7 +779,7 @@ export const posts: Post[] = [
       {
         heading: 'La tesis que sostiene el ecosistema DeepSeek',
         paragraphs: [
-          'Este benchmark es el argumento central de por qué DeepSeek está ganando tracción en 2026: un modelo open-weight, barato y de alto rendimiento rompe el dogma de que "lo caro es mejor". Para developers, startups y self-hosters, la Flash elimina la excusa de no automatizar por coste.',
+          'Este rendimiento es el argumento central de por qué DeepSeek está ganando tracción en 2026: un modelo open-weight, barato y de alto rendimiento rompe el dogma de que "lo caro es mejor". Para developers, startups y self-hosters, la Flash elimina la excusa de no automatizar por coste.',
           'Si además corres el harness de DeepSeek (licencia MIT) con la Flash, tienes un stack de agentes completo y de bajo coste, sin lock-in de vendor. Es el posicionamiento en el que se apoya todo el ecosistema HosT.ia.',
         ],
       },
@@ -787,15 +787,15 @@ export const posts: Post[] = [
     faq: [
       {
         q: '¿La V4 Flash es mejor que la V4 Pro?',
-        a: 'En los benchmarks publicados, la Flash 0731 supera a la Pro en 9 de ellos, incluido Terminal Bench 2.1 (82.7 vs 72.1). Para la mayoría de tareas, es la mejor elección: casi igual de capaz y mucho más barata.',
+        a: 'En razonamiento científico (GPQA Diamond) la Flash 0731 marca un 90.0% frente al 87.7% de la Pro 0813: la barata supera a la cara. En tareas de agente (Tau-Bench) la Pro gana ligeramente (79.3% vs 77.8%). En conjunto, para la mayoría de tareas la Flash ofrece el mejor balance calidad-precio.',
       },
       {
-        q: '¿Cuánto cuesta DeepSeek V4 Flash?',
-        a: 'Desde el 16/8/2026: $0.22/M de entrada (cache miss), $1.32/M de output en pico y $0.66/M en valle.',
+        q: '¿Cuánto cuesta DeepSeek V4 Flash en OpenRouter?',
+        a: 'La V4 Flash 0731 cuesta $0.14 por millón de tokens de entrada y $0.28 por millón de salida. Es aproximadamente 3x más barata que la V4 Pro 0813 ($0.435 de entrada y $0.87 de salida).',
       },
       {
-        q: '¿Por qué subieron tanto los precios?',
-        a: 'La subida fue de hasta un 1100% frente a los precios previos (eran $0.14/M in y $0.28/M out). Aun así, la Flash sigue siendo la referencia calidad-precio del mercado.',
+        q: '¿Dónde se publican los benchmarks de la V4 Flash?',
+        a: 'OpenRouter y Artificial Analysis publican los benchmarks por provider. Para la Flash 0731, el provider de DeepSeek marca 90.0% en GPQA Diamond y 77.8% en Tau-Bench.',
       },
       {
         q: '¿La V4 Flash razona?',
@@ -803,7 +803,7 @@ export const posts: Post[] = [
       },
       {
         q: '¿Debo usar siempre la Flash?',
-        a: 'Para la mayoría de tareas de agente y productividad, sí. Reserva la Pro para casos muy específicos que justifiquen su coste hasta 14x mayor.',
+        a: 'Para la mayoría de tareas de agente y productividad, sí. Reserva la Pro para casos que exijan el máximo en agentes/tool-use y justifiquen su coste ~3x mayor.',
       },
     ],
     cta: '¿Quieres agentes en producción al menor coste posible? Hablemos.',
@@ -905,7 +905,7 @@ export const posts: Post[] = [
         heading: 'Cómo elegir el tuyo en 2026',
         paragraphs: [
           'No hay un ganador absoluto: hay un ganador para tu caso. La regla práctica es esta: si quieres la mejor integración con un ecosistema cerrado, Claude Code o Codex; si quieres control de coste, datos y portabilidad de modelo, la familia open-source (Aider, Cline, OpenCode) o DeepSeek Harness.',
-          'Si tu prioridad es el coste, elige un harness abierto con la DeepSeek V4 Flash: obtienes rendimiento de gama alta (82.7 en Terminal Bench 2.1) a una fracción del precio de los modelos premium.',
+          'Si tu prioridad es el coste, elige un harness abierto con la DeepSeek V4 Flash: obtienes rendimiento de gama alta (90.0% en GPQA Diamond, a la altura de la V4 Pro) por ~3x menos de coste.',
         ],
         bullets: [
           'UX pulida + ecosistema → Claude Code o Codex.',
@@ -930,7 +930,7 @@ export const posts: Post[] = [
       },
       {
         q: '¿Qué modelo usar con un harness open-source?',
-        a: 'La DeepSeek V4 Flash es la referencia calidad/precio: 82.7 en Terminal Bench 2.1 a una fracción del coste de los modelos premium.',
+        a: 'La DeepSeek V4 Flash es la referencia calidad/precio: rinde a la altura de la V4 Pro (90.0% vs 87.7% en GPQA Diamond) por ~3x menos de coste.',
       },
       {
         q: '¿Puedo usar modelos locales?',
